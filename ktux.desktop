@@ -1,6 +1,5 @@
 [Desktop Entry]
 Name=KTux
-Name[af]=KTUX
 Name[eo]=Tuĉjo
 Name[fr]=Tux
 Name[is]=Tux
@@ -10,7 +9,6 @@ Icon=ktux
 Type=Application
 Actions=Setup;InWindow;Root
 Name=Tux
-Name[af]=TUX
 Name[az]=Tux penguen
 Name[eo]=Tuĉjo
 Name[he]=סקט
@@ -22,7 +20,6 @@ Terminal=0
 [Desktop Action Setup]
 Exec=ktux -setup
 Name=Setup...
-Name[af]=OPSTELLING...
 Name[az]=Qurulum...
 Name[bg]=Настройки...
 Name[br]=Kefluniadur...
@@ -63,18 +60,18 @@ Name[sk]=Nastavenie...
 Name[sl]=Nastavljanje...
 Name[sv]=Inställningar...
 Name[ta]=«¨ÁôÒ...
+Name[th]=ติดตั้ง...
 Name[tr]=Kurulum...
 Name[uk]=Встановити...
 Name[vi]=Cài đặt... 
 Name[wa]=Apontyî...
+Name[xh]=Iyacwangciswa...
 Name[zh_CN.GB2312]=设置...
-Name[zh_TW.Big5]=設定...
 Icon=kscreensaver
 
 [Desktop Action InWindow]
 Exec=ktux -window-id %w
 Name=Display in specified window
-Name[af]=VERTOON IN GESPESIFISEER wINdow
 Name[az]=Bİldirilən pəncərədə göstər
 Name[bg]=Изображение в зададен прозорец
 Name[br]=Diskwel er prenestr spisaet
@@ -116,17 +113,17 @@ Name[sl]=Prikaz v določenemu oknu
 Name[sr]=Prikaži u zadatom prozoru
 Name[sv]=Visa i angivet fönster
 Name[ta]=ÌÈ¢ò¾ º¡ÇÃò¾¢ü ¸¡ðÎ
+Name[th]=แสดงในหน้าต่างที่กำหนด
 Name[tr]=Belirtilen pencerede göster
 Name[uk]=Відобразити у вказаному вікні
 Name[vi]=Hiêển thềEcửa sềEcụ thềE
+Name[xh]=Bonisa kwi window ekhankanyiweyo
 Name[zh_CN.GB2312]=在指定的窗口中显示
-Name[zh_TW.Big5]=在指定的視窗顯示
 NoDisplay=true
  
 [Desktop Action Root]
 Exec=ktux -root
 Name=Display in root window
-Name[af]=VERTOON IN ROOT wINdow
 Name[az]=Kök pəncərədə göstər
 Name[bg]=Изображение в корневия прозорец
 Name[bs]=Prikaži u korijenskom prozoru
@@ -167,9 +164,10 @@ Name[sl]=Prikaz v korenskem oknu
 Name[sr]=Prikaži u glavnom (root) prozoru 
 Name[sv]=Visa i rotfönstret
 Name[ta]=§Å÷î º¡ÇÃò¾¢ü ¸¡ðÎ
+Name[th]=แสดงในหน้าต่างหลัก
 Name[tr]=Kök pencerede göster
 Name[uk]=Відобразити на тлі екрана
 Name[vi]=Hiển thềEcửa sềEcủa root 
+Name[xh]=Bonisa kwingcambu ye window
 Name[zh_CN.GB2312]=在根窗口中显示
-Name[zh_TW.Big5]=在原始視窗顯示
 NoDisplay=true
