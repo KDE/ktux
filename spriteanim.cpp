@@ -44,7 +44,7 @@ void SpriteObject::setBounds( int x1, int y1, int x2, int y2 )
 
 bool SpriteObject::outOfBounds() const
 {
-    bool in = mBound.contains( x(), y() );
+    bool in = mBound.contains( static_cast<int>(x()), static_cast<int>(y()) );
     return !in;
 }
 
