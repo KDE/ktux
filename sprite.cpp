@@ -46,6 +46,7 @@ extern "C"
 KSpriteSetup::KSpriteSetup( QWidget *parent, const char *name )
   : QDialog( parent, name, TRUE )
 {
+    KGlobal::locale()->insertCatalogue("ktux");
     saver = 0;
 
     readSettings();
