@@ -13,15 +13,15 @@
 #include <qlist.h>
 #include <qstrlist.h>
 #include <qcanvas.h>
-#include "saver.h"
+#include <kscreensaver.h>
 #include "spriteanim.h"
 
 //-----------------------------------------------------------------------------
-class KSpriteSaver : public kScreenSaver
+class KSpriteSaver : public KScreenSaver
 {
 	Q_OBJECT
 public:
-    KSpriteSaver( Drawable drawable );
+    KSpriteSaver( WId id );
     virtual ~KSpriteSaver();
 
     void setSpeed(int speed);
@@ -38,7 +38,7 @@ protected:
     virtual void timerEvent(QTimerEvent *);
 
 protected:
-    QCanvas	*mSpriteField;
+    QCanvas	*mCanvas;
     QCanvasView	*mView;
     QTimer	mTimer;
     int                 mSpeed;
@@ -57,9 +57,9 @@ protected:
     void readSettings();
 
 private slots:
-	void slotSpeed(int s);
-	void slotOkPressed();
-	void slotAbout();
+    void slotSpeed(int s);
+    void slotOkPressed();
+    void slotAbout();
 
 private:
     int     speed;

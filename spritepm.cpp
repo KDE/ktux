@@ -51,12 +51,12 @@ const QPixmap *SpritePixmapManager::load(const QString & img)
         if (!pixmap->isNull())
         {
             mPixmaps.insert(img,pixmap);
-            //kdDebug() << "read successfully" << endl;;
         }
         else
         {
             delete pixmap;
             pixmap = 0;
+            kdDebug() << "read failed" << endl;;
         }
     }
 

@@ -18,44 +18,31 @@
 #include <kstddirs.h>
 #include <klocale.h>
 #include <kdebug.h>
-#include <qxembed.h>
 
 #include <kbuttonbox.h>
 
-#include "kcolordlg.h"
 #include "spritepm.h"
 #include "spritemisc.h"
 #include "sprite.h"
-
 #include "sprite.moc"
 
-#include <X11/Xlib.h>
-#undef Bool
 
-static KSpriteSaver *saver = NULL;
-
-//-----------------------------------------------------------------------------
-// standard screen saver interface functions
-//
-void startScreenSaver(Drawable d)
+// libkscreensaver interface
+extern "C"
 {
-  if (saver)
-    return;
-  saver = new KSpriteSaver(d);
-}
+    const char *kss_applicationName = "ktux";
+    const char *kss_description = I18N_NOOP( "Tux Screensaver" );
+    const char *kss_version = "1.0.0";
 
-void stopScreenSaver()
-{
-  if (saver)
-    delete saver;
-  saver = 0;
-}
+    KScreenSaver *kss_create( WId id )
+    {
+        return new KSpriteSaver( id );
+    }
 
-int setupScreenSaver()
-{
-  KSpriteSetup dlg;
-
-  return dlg.exec();
+    QDialog *kss_setup()
+    {
+        return new KSpriteSetup();
+    }
 }
 
 //-----------------------------------------------------------------------------
@@ -63,121 +50,121 @@ int setupScreenSaver()
 KSpriteSetup::KSpriteSetup( QWidget *parent, const char *name )
   : QDialog( parent, name, TRUE )
 {
-  saver = 0;
+    saver = 0;
 
-  readSettings();
+    readSettings();
 
-  setCaption(i18n("Setup KTux") );
+    setCaption(i18n("Setup KTux") );
 
-  QVBoxLayout *tl = new QVBoxLayout(this, 10, 10);
-  QHBoxLayout *tl1 = new QHBoxLayout;
-  tl->addLayout(tl1);
-  QVBoxLayout *tl11 = new QVBoxLayout(5);
-  tl1->addLayout(tl11);
+    QVBoxLayout *tl = new QVBoxLayout(this, 10, 10);
+    QHBoxLayout *tl1 = new QHBoxLayout;
+    tl->addLayout(tl1);
+    QVBoxLayout *tl11 = new QVBoxLayout(5);
+    tl1->addLayout(tl11);
 
-  QLabel *label = new QLabel( i18n("Speed:"), this );
-  label->setMinimumSize(label->sizeHint());
-  tl11->addStretch(1);
-  tl11->addWidget(label);
+    QLabel *label = new QLabel( i18n("Speed:"), this );
+    label->setMinimumSize(label->sizeHint());
+    tl11->addStretch(1);
+    tl11->addWidget(label);
 
-  QSlider *sb = new QSlider(20, 100, 10, speed, QSlider::Horizontal, this );
-  sb->setMinimumWidth( 180);
-  sb->setFixedHeight(20);
-  tl11->addWidget(sb);
-  connect( sb, SIGNAL( valueChanged( int ) ), SLOT( slotSpeed( int ) ) );
+    QSlider *sb = new QSlider(0, 100, 10, speed, QSlider::Horizontal, this );
+    tl11->addWidget(sb);
+    connect( sb, SIGNAL( valueChanged( int ) ), SLOT( slotSpeed( int ) ) );
 
-  preview = new QWidget( this );
-  preview->setFixedSize( 220, 170 );
-  preview->setBackgroundColor( black );
-  preview->show();    // otherwise saver does not get correct size
-  saver = new KSpriteSaver( preview->winId() );
-  tl1->addWidget(preview);
+    preview = new QWidget( this );
+    preview->setFixedSize( 220, 170 );
+    preview->setBackgroundColor( black );
+    preview->show();    // otherwise saver does not get correct size
+    saver = new KSpriteSaver( preview->winId() );
+    tl1->addWidget(preview);
 
-  KButtonBox *bbox = new KButtonBox(this);
-  QButton *button = bbox->addButton( i18n("About"));
-  connect( button, SIGNAL( clicked() ), SLOT(slotAbout() ) );
-  bbox->addStretch(1);
+    KButtonBox *bbox = new KButtonBox(this);
+    QButton *button = bbox->addButton( i18n("About"));
+    connect( button, SIGNAL( clicked() ), SLOT(slotAbout() ) );
+    bbox->addStretch(1);
 
-  button = bbox->addButton( i18n("OK"));
-  connect( button, SIGNAL( clicked() ), SLOT( slotOkPressed() ) );
+    button = bbox->addButton( i18n("OK"));
+    connect( button, SIGNAL( clicked() ), SLOT( slotOkPressed() ) );
 
-  button = bbox->addButton(i18n("Cancel"));
-  connect( button, SIGNAL( clicked() ), SLOT( reject() ) );
-  bbox->layout();
-  tl->addWidget(bbox);
+    button = bbox->addButton(i18n("Cancel"));
+    connect( button, SIGNAL( clicked() ), SLOT( reject() ) );
+    bbox->layout();
+    tl->addWidget(bbox);
 
-  tl->freeze();
+    tl->freeze();
 }
 
 KSpriteSetup::~KSpriteSetup()
 {
-  delete saver;
+    delete saver;
 }
 
 // read settings from config file
 void KSpriteSetup::readSettings()
 {
-  KConfig *config = KApplication::kApplication()->config();
-  config->setGroup( "Settings" );
+    KConfig *config = KGlobal::config();
+    config->setGroup( "Settings" );
 
-  speed = config->readNumEntry( "Speed", 50 );
-  if (speed > 100)
-    speed = 100;
-  else if (speed < 20)
-    speed = 20;
+    speed = config->readNumEntry( "Speed", 50 );
+    if (speed > 100)
+	speed = 100;
+    else if (speed < 0)
+	speed = 0;
 }
 
 void KSpriteSetup::slotSpeed(int s)
 {
-  speed = s;
-  if (saver)
-    saver->setSpeed(speed);
+    speed = s;
+    if (saver)
+	saver->setSpeed(speed);
 }
 
 // Ok pressed - save settings and exit
 void KSpriteSetup::slotOkPressed()
 {
-  KConfig *config = KApplication::kApplication()->config();
-  config->setGroup("Settings");
-  config->writeEntry("Speed", speed);
-  config->sync();
-  accept();
+    KConfig *config = KGlobal::config();
+    config->setGroup("Settings");
+    config->writeEntry("Speed", speed);
+    config->sync();
+    accept();
 }
 
 void KSpriteSetup::slotAbout()
 {
   QMessageBox::message(i18n("About KTux"),
-    i18n("KTux Version 0.1\n\nwritten by Martin R. Jones 1999\nmjones@kde.org"),
+    i18n("KTux Version 1.0\n\nwritten by Martin R. Jones 1999\nmjones@kde.org"),
     i18n("OK"));
 }
 
 
 //-----------------------------------------------------------------------------
 
-KSpriteSaver::KSpriteSaver(Drawable drawable) : kScreenSaver(drawable)
+KSpriteSaver::KSpriteSaver( WId id ) : KScreenSaver( id )
 {
-  initialise();
-  readSettings();
-  blank();
+    KGlobal::dirs()->addResourceType("sprite", KStandardDirs::kde_default("data") + "ktux/sprites/");
 
-  connect(&mTimer, SIGNAL(timeout()), SLOT(slotTimeout()));
-  mTimer.start(mSpeed, true);
+    initialise();
+    readSettings();
+    blank();
+
+    connect(&mTimer, SIGNAL(timeout()), SLOT(slotTimeout()));
+    mTimer.start(120-mSpeed, true);
 }
 
 //-----------------------------------------------------------------------------
 KSpriteSaver::~KSpriteSaver()
 {
-  mTimer.stop();
-  delete mView;
-  delete mSpriteField;
+    mTimer.stop();
+    delete mView;
+    delete mCanvas;
 }
 
 //-----------------------------------------------------------------------------
 //
 void KSpriteSaver::setSpeed(int speed)
 {
-  mSpeed = speed;
-  mTimer.changeInterval(mSpeed);
+    mSpeed = speed;
+    mTimer.changeInterval(120-mSpeed);
 }
 
 //-----------------------------------------------------------------------------
@@ -185,86 +172,86 @@ void KSpriteSaver::setSpeed(int speed)
 //
 void KSpriteSaver::readSettings()
 {
-  QString str;
+    QString str;
 
-  KConfig *config = KApplication::kApplication()->config();
-  config->setGroup("Settings");
+    KConfig *config = KGlobal::config();
+    config->setGroup("Settings");
 
-  mSpeed = config->readNumEntry("Speed", 50);
+    mSpeed = config->readNumEntry("Speed", 50);
 
-  QString path = KGlobal::dirs()->findResourceDir( "sprite", "bg.png" );
+    QString path = KGlobal::dirs()->findResourceDir( "sprite", "bg.png" );
 
-  SpritePixmapManager::manager()->setPixmapDir(path);
+    SpritePixmapManager::manager()->setPixmapDir(path);
 
-  path += "spriterc";
+    path += "spriterc";
 
-  KSimpleConfig *mConfig = new KSimpleConfig(path, true);
-  mConfig->setGroup("Config");
-  QStrList list;
-  int groups = mConfig->readListEntry("Groups", list);
-  mTimerIds.resize(groups);
-  for (int i = 0; i < groups; i++)
-  {
-    kdDebug() << "Group: " << list.at(i) << endl;;
-    mConfig->setGroup(list.at(i));
-    SpriteGroup *obj = new SpriteGroup(mSpriteField, *mConfig);
-    mTimerIds[i] = startTimer(obj->refreshTime());
-    mGroups.append(obj);
-  }
-  delete mConfig;
+    KSimpleConfig *mConfig = new KSimpleConfig(path, true);
+    mConfig->setGroup("Config");
+    QStrList list;
+    int groups = mConfig->readListEntry("Groups", list);
+    mTimerIds.resize(groups);
+    for (int i = 0; i < groups; i++)
+    {
+	kdDebug() << "Group: " << list.at(i) << endl;;
+	mConfig->setGroup(list.at(i));
+	SpriteGroup *obj = new SpriteGroup(mCanvas, *mConfig);
+	mTimerIds[i] = startTimer(obj->refreshTime());
+	mGroups.append(obj);
+    }
+    delete mConfig;
 }
 
 //-----------------------------------------------------------------------------
 void KSpriteSaver::initialise()
 {
-  mSpriteField = new QCanvas();
-  QPixmap pm( locate("sprite", "bg.png") );
-  mSpriteField->setBackgroundPixmap( pm );
-  mSpriteField->resize( mWidth, mHeight );
-  mView = new QCanvasView(mSpriteField);
-  mView->viewport()->setBackgroundColor( black );
-  mView->resize( mWidth, mHeight );
-  mView->setFrameStyle( QFrame::NoFrame );
-  mView->setVScrollBarMode( QScrollView::AlwaysOff );
-  mView->setHScrollBarMode( QScrollView::AlwaysOff );
-  QXEmbed::embedClientIntoWindow( mView, mDrawable );
-  mView->show();
-  SpriteRange::setFieldSize(mView->size());
+    mCanvas = new QCanvas();
+    QPixmap pm( locate("sprite", "bg.png") );
+    mCanvas->setBackgroundPixmap( pm );
+    mCanvas->resize( width(), height() );
+    mView = new QCanvasView(mCanvas);
+    mView->viewport()->setBackgroundColor( black );
+    mView->resize( width(), height() );
+    mView->setFrameStyle( QFrame::NoFrame );
+    mView->setVScrollBarMode( QScrollView::AlwaysOff );
+    mView->setHScrollBarMode( QScrollView::AlwaysOff );
+    embed( mView );
+    mView->show();
+    SpriteRange::setFieldSize(mView->size());
 }
 
 //-----------------------------------------------------------------------------
 void KSpriteSaver::slotTimeout()
 {
-  mTimer.start(mSpeed, true);
-  SpriteGroup *grp;
+    mTimer.start(120-mSpeed, true);
+    SpriteGroup *grp;
 
-  for (grp = mGroups.first(); grp; grp = mGroups.next())
-  {
-    grp->next();
-  }
+    for (grp = mGroups.first(); grp; grp = mGroups.next())
+    {
+	grp->next();
+    }
 
-  mSpriteField->advance();
+    mCanvas->advance();
 }
 
 //-----------------------------------------------------------------------------
 void KSpriteSaver::timerEvent(QTimerEvent *ev)
 {
-  for (unsigned i = 0; i < mTimerIds.size(); i++)
-  {
-    if (mTimerIds[i] == ev->timerId())
+    for (unsigned i = 0; i < mTimerIds.size(); i++)
     {
-      mGroups.at(i)->refresh();
-      killTimer(ev->timerId());
-      mTimerIds[i] = startTimer(mGroups.at(i)->refreshTime());
-      break;
+	if (mTimerIds[i] == ev->timerId())
+	{
+	    mGroups.at(i)->refresh();
+	    killTimer(ev->timerId());
+	    mTimerIds[i] = startTimer(mGroups.at(i)->refreshTime());
+	    break;
+	}
     }
-  }
 }
 
 //-----------------------------------------------------------------------------
 void KSpriteSaver::blank()
 {
-  XSetWindowBackground(qt_xdisplay(), mDrawable, black.pixel());
-  XClearWindow(qt_xdisplay(), mDrawable);
+    setBackgroundColor( black );
+    erase();
 }
 

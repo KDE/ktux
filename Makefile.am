@@ -15,15 +15,13 @@ INCLUDES         = $(all_includes)
 ktux_LDFLAGS = $(all_libraries) $(KDE_RPATH)
 
 # the libraries to link against.
-ktux_LDADD   = $(LIB_KDEUI)
+ktux_LDADD   = $(LIB_KDEUI) -lkscreensaver
 
 # which sources should be compiled for ktux
-ktux_SOURCES =	main.cpp demowin.cpp spriteanim.cpp \
-                spritemisc.cpp spritepm.cpp saver.cpp sprite.cpp
+ktux_SOURCES =	spriteanim.cpp spritemisc.cpp spritepm.cpp sprite.cpp
 
 # these are the headers for your project
-noinst_HEADERS   = saver.h demowin.h vroot.h sprite.h spriteanim.h \
-                    spritemisc.h spritepm.h
+noinst_HEADERS   = sprite.h spriteanim.h spritemisc.h spritepm.h
 
 # let automoc handle all of the meta source files (moc)
 METASOURCES = AUTO
