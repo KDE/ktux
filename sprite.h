@@ -43,7 +43,7 @@ protected:
     QTimer	mTimer;
     int                 mSpeed;
     QPtrList<SpriteGroup>  mGroups;
-    QArray<int>    mTimerIds;
+    QMemArray<int>    mTimerIds;
 };
 
 class KSpriteSetup : public QDialog

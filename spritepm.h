@@ -49,12 +49,12 @@ public:
 class SpritePixmapSequence : public QCanvasPixmapArray
 {
 public:
-    SpritePixmapSequence(QPtrList<QPixmap> pm, QPtrList<QPoint> hs, QArray<int> d);
+    SpritePixmapSequence(QPtrList<QPixmap> pm, QPtrList<QPoint> hs, QMemArray<int> d);
 
     int delay(int i) const { return mDelays[i]; }
 
 protected:
-    QArray<int> mDelays;
+    QMemArray<int> mDelays;
 };
 
 //---------------------------------------------------------------------------

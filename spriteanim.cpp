@@ -80,7 +80,7 @@ SpriteObject *SpriteDef::create( QCanvas *c )
 
     return sprite;
 }
- 
+
 //---------------------------------------------------------------------------
 void SpriteDef::read(KConfigBase &config)
 {
@@ -112,7 +112,7 @@ SpriteGroup::SpriteGroup(QCanvas *c, KConfigBase &config)
 //---------------------------------------------------------------------------
 void SpriteGroup::next()
 {
-    QListIterator<SpriteObject> it(mActive);
+    QPtrListIterator<SpriteObject> it(mActive);
 
     for (; it.current(); ++it)
     {

@@ -80,7 +80,7 @@ SpritePixmapManager *SpritePixmapManager::manager()
 //===========================================================================
 //
 SpritePixmapSequence::SpritePixmapSequence(QPtrList<QPixmap> pm, QPtrList<QPoint> hs,
-        QArray<int> d)
+        QMemArray<int> d)
     : QCanvasPixmapArray(pm, hs), mDelays(d)
 {
 }
@@ -143,7 +143,7 @@ SpritePixmapSequence *SpriteSequenceManager::read(KConfigBase &config)
     int frames = config.readListEntry("Images", strImages);
     config.readListEntry("Delays", strDelays);
 
-    QArray<int> delays(frames);
+    QMemArray<int> delays(frames);
 
     for (int i = 0; i < frames; i++)
     {
