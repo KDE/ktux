@@ -13,9 +13,9 @@
 #include <qmessagebox.h>
 #include <qlayout.h>
 #include <qslider.h>
-#include <kapplication.h>
+#include <kapp.h>
 #include <kglobal.h>
-#include <kstandarddirs.h>
+#include <kstddirs.h>
 #include <klocale.h>
 #include <kdebug.h>
 
