@@ -1,0 +1,45 @@
+[Desktop Entry]
+Name=KTux
+Exec=ktux %i %m -caption "%c"
+Icon=ktux
+Type=Application
+Actions=Setup;InWindow;Root
+DocPath=ktux/ktux.html
+Name=Tux
+Terminal=0
+
+[Desktop Action Setup]
+Exec=ktux -setup
+Name=Setup...
+Name[cs]=Nastavení...
+Name[de]=Einrichtung...
+Name[eo]=Agordo...
+Name[fi]=Asetukset...
+Name[hu]=Beállítás...
+Name[no]=Oppsett...
+Name[sl]=Nastavitve...
+Icon=kscreensaver
+
+[Desktop Action InWindow]
+Exec=ktux -window-id %w
+Name=Display in specified window
+Name[cs]=Zobrazit v ur�~Meném okn�~[
+Name[de]=In vorgegebenem Fenster anzeigen
+Name[eo]=Montru en indikita fenestro
+Name[fi]=Näytä määrätyssä ikkunassa
+Name[hu]=Megjelenítés a megadott ablakban
+Name[no]=Vis i det oppgitte vinduet
+Name[sl]=Prikaz v dolo�~Menemu oknu
+NoDisplay=true
+ 
+[Desktop Action Root]
+Exec=ktux -root
+Name=Display in root window
+Name[cs]=Zobrazit na pozadí plochy
+Name[de]=In Hintergrundfenster anzeigen
+Name[eo]=Montru en radika fenestro
+Name[fi]=Näytä root-ikkunassa
+Name[hu]=Megjelenítés a root ablakban
+Name[no]=Vis i bunnvinduet
+Name[sl]=Prikaz v korenskem oknu
+NoDisplay=true
