@@ -14,7 +14,7 @@
 #include <kstandarddirs.h>
 #include <klocale.h>
 #include <kdebug.h>
-
+#include <kstdguiitem.h>
 #include <kbuttonbox.h>
 
 #include "spritepm.h"
@@ -80,10 +80,10 @@ KSpriteSetup::KSpriteSetup( QWidget *parent, const char *name )
     connect( button, SIGNAL( clicked() ), SLOT(slotAbout() ) );
     bbox->addStretch(1);
 
-    button = bbox->addButton( i18n("OK"));
+    button = bbox->addButton( KStdGuiItem::ok());
     connect( button, SIGNAL( clicked() ), SLOT( slotOkPressed() ) );
 
-    button = bbox->addButton(i18n("Cancel"));
+    button = bbox->addButton(KStdGuiItem::cancel());
     connect( button, SIGNAL( clicked() ), SLOT( reject() ) );
     bbox->layout();
     tl->addWidget(bbox);
