@@ -28,19 +28,13 @@ noinst_HEADERS   = saver.h demowin.h vroot.h sprite.h spriteanim.h \
 # let automoc handle all of the meta source files (moc)
 METASOURCES = AUTO
 
-# if you "make distclean", this files get removed. If you want to remove
-# them while "make clean", use CLEANFILES
-DISTCLEANFILES = $(METASOURCES)
-
 # make messages.po. Move this one to ../po/ and "make merge" in po
 # the -x is for skipping messages already translated in kdelibs
 messages:
-	$(XGETTEXT) -C -ki18n -x $(includedir)/kde.pot $(ktux_SOURCES) && mv messages.po ../po/ktux.pot
+	$(XGETTEXT) *.cpp -o $(podir)/ktux.pot
 
 KDE_ICON = ktux
 
- # this is where the kdelnk file will go 
-#kdelnkdir   = $(kde_appsdir)/System/ScreenSavers
-#kdelnk_DATA = ktux.desktop
 appsdir   = $(kde_appsdir)/System/ScreenSavers
 apps_DATA = ktux.desktop
+
