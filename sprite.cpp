@@ -207,7 +207,7 @@ void KSpriteSaver::initialise()
     mCanvas->resize( width(), height() );
     mView = new QCanvasView(mCanvas);
     mView->viewport()->setBackgroundColor( black );
-    mView->resize( width(), height() );
+    mView->viewport()->resize( width(), height() );
     mView->setFrameStyle( QFrame::NoFrame );
     mView->setVScrollBarMode( QScrollView::AlwaysOff );
     mView->setHScrollBarMode( QScrollView::AlwaysOff );
