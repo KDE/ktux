@@ -6,6 +6,7 @@
 //
 
 #include <stdlib.h>
+#include <kdebug.h>
 #include "spritepm.h"
 
 // static
@@ -36,14 +37,14 @@ SpritePixmapManager::~SpritePixmapManager()
 // Returns:
 //   pointer to pixmap if loaded successfully, 0 otherwise.
 //
-const QPixmap *SpritePixmapManager::load(const char *img)
+const QPixmap *SpritePixmapManager::load(const QString & img)
 {
     QPixmap *pixmap = mPixmaps.find(img);
 
     if (!pixmap)
     {
         // pixmap has not yet been loaded.
-        debug("Reading pixmap: %s", img);
+        kdDebug() << "Reading pixmap: " << img << endl;
         QString path = mPixmapDir + QString("/") + img;
         pixmap = new QPixmap(path);
 
@@ -112,13 +113,13 @@ SpriteSequenceManager::~SpriteSequenceManager()
 //   pointer to sprite if loaded successfully, 0 otherwise.
 //
 SpritePixmapSequence *SpriteSequenceManager::load(KConfigBase &config,
-    const char *name)
+    const QString & name)
 {
     SpritePixmapSequence *sprite = mSprites.find(name);
 
     if (!sprite)
     {
-        debug("Reading sprite: %s", name);
+        debug("Reading sprite: %s", name.latin1());
         config.setGroup(name);
         sprite = read(config);
         if (sprite)

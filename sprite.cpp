@@ -197,7 +197,7 @@ void KSpriteSaver::readSettings()
 
   path += "spriterc";
 
-  debug("path = " + path);
+  //debug("path = " + path);
 
   KSimpleConfig *mConfig = new KSimpleConfig(path, true);
   mConfig->setGroup("Config");

@@ -32,7 +32,7 @@ public:
         { mPixmapDir = dir; }
     void reset()
         { mPixmapDir = "."; mPixmaps.clear(); }
-    const QPixmap *load(const char *img);
+    const QPixmap *load(const QString & img);
     const QPixmap *pixmap(const char *img) const
         { return mPixmaps.find(img); }
 
@@ -67,7 +67,7 @@ public:
     SpriteSequenceManager();
     ~SpriteSequenceManager();
  
-    SpritePixmapSequence *load(KConfigBase &config, const char *name);
+    SpritePixmapSequence *load(KConfigBase &config, const QString & name);
     SpritePixmapSequence *sprite(const char *name)
         { return mSprites.find(name); }
 

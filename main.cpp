@@ -102,14 +102,14 @@ int main(int argc, char *argv[])
 //----------------------------------------------------------------------------
 void usage(char *name)
 {
-	printf(i18n(
-	   "Usage: %1 [-setup|-window-id wid|-root|-help]\n").arg(name)); 
-	printf(i18n(
+    printf(i18n(
+       "Usage: %1 [-setup|-window-id wid|-root|-help]\n").arg(name).local8Bit().data()); 
+    printf(i18n(
     "Without any parameters, a demo of the screensaver is displayed\n"\
-	"  -setup            Setup screen saver\n"\
-	"  -window-id wid    Run in the specified XWindow\n"\
-	"  -root             Run in the root window\n"\
-    "  -help             This help\n"));
-	exit(1);
+    "  -setup            Setup screen saver\n"\
+    "  -window-id wid    Run in the specified XWindow\n"\
+    "  -root             Run in the root window\n"\
+    "  -help             This help\n").local8Bit().data());
+    exit(1);
 }
 
