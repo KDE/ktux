@@ -10,6 +10,7 @@ Exec=ktux %i %m -caption "%c"
 Icon=ktux
 Type=Application
 Actions=Setup;InWindow;Root
+X-KDE-Category=Flying Things
 Name=Tux
 Name[az]=Tux penguen
 Name[eo]=Tuĉjo
