@@ -10,7 +10,7 @@
 
 #include <qtimer.h>
 #include <qpushbutton.h>
-#include <qlist.h>
+#include <qptrlist.h>
 #include <qstrlist.h>
 #include <qcanvas.h>
 #include <kscreensaver.h>
@@ -42,7 +42,7 @@ protected:
     QCanvasView	*mView;
     QTimer	mTimer;
     int                 mSpeed;
-    QList<SpriteGroup>  mGroups;
+    QPtrList<SpriteGroup>  mGroups;
     QArray<int>    mTimerIds;
 };
 

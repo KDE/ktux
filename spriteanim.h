@@ -14,7 +14,7 @@
 
 #include <qpixmap.h>
 #include <qdict.h>                                                              
-#include <qlist.h>
+#include <qptrlist.h>
 #include <qstrlist.h>
 #include <qcanvas.h>
 #include <kconfigbase.h>
@@ -85,8 +85,8 @@ protected:
     void read(KConfigBase &config);
 
 protected:
-    QList<SpriteDef>        mAvailable;
-    QList<SpriteObject>     mActive;
+    QPtrList<SpriteDef>        mAvailable;
+    QPtrList<SpriteObject>     mActive;
     int                     mCount;
     SpriteRange             mRefresh;
     QCanvas		    *mCanvas;
