@@ -7,14 +7,10 @@
 
 #include <stdlib.h>
 #include <time.h>
-#include <qcolor.h>
 #include <qlabel.h>
-#include <qgroupbox.h>
 #include <qmessagebox.h>
 #include <qlayout.h>
 #include <qslider.h>
-#include <kapplication.h>
-#include <kglobal.h>
 #include <kstandarddirs.h>
 #include <klocale.h>
 #include <kdebug.h>
