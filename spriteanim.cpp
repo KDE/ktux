@@ -132,7 +132,7 @@ void SpriteGroup::next()
 //---------------------------------------------------------------------------
 void SpriteGroup::refresh()
 {
-    if (mActive.count() < mCount)
+    if (((int) mActive.count()) < mCount)
     {
         SpriteObject *sprite = mAvailable.first()->create(mCanvas);
         mActive.append(sprite);
