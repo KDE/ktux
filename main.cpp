@@ -13,6 +13,7 @@
 #include <stdlib.h>
 #include <qcolor.h>
 #include <klocale.h>
+#include <kdebug.h>
 #include <kconfig.h>
 #include <kstddirs.h>
 #include <kapp.h>
@@ -70,7 +71,7 @@ int main(int argc, char *argv[])
                 usage(argv[0]);
                 break;
             default: // unknown
-                debug("Unknown parameter: %s", argv[i]);
+                kdWarning() << "Unknown parameter: " << argv[i] << endl;
                 usage(argv[0]);
                 break;
         }

@@ -1,6 +1,6 @@
 //-----------------------------------------------------------------------------
 //
-// ksprite - QCanvas based screensaver
+// KTux - QCanvas based screensaver
 //
 // Copyright (c)  Martin R. Jones 1999
 //
@@ -17,6 +17,7 @@
 #include <kglobal.h>
 #include <kstddirs.h>
 #include <klocale.h>
+#include <kdebug.h>
 #include <qxembed.h>
 
 #include <kbuttonbox.h>
@@ -66,7 +67,7 @@ KSpriteSetup::KSpriteSetup( QWidget *parent, const char *name )
 
   readSettings();
 
-  setCaption(i18n("Setup ksprite") );
+  setCaption(i18n("Setup KTux") );
 
   QVBoxLayout *tl = new QVBoxLayout(this, 10, 10);
   QHBoxLayout *tl1 = new QHBoxLayout;
@@ -145,8 +146,8 @@ void KSpriteSetup::slotOkPressed()
 
 void KSpriteSetup::slotAbout()
 {
-  QMessageBox::message(i18n("About Sprite"), 
-    i18n("Sprite Version 0.1\n\nwritten by Martin R. Jones 1999\nmjones@kde.org"), 
+  QMessageBox::message(i18n("About KTux"), 
+    i18n("KTux Version 0.1\n\nwritten by Martin R. Jones 1999\nmjones@kde.org"), 
     i18n("OK"));
 }
 
@@ -197,8 +198,6 @@ void KSpriteSaver::readSettings()
 
   path += "spriterc";
 
-  //debug("path = " + path);
-
   KSimpleConfig *mConfig = new KSimpleConfig(path, true);
   mConfig->setGroup("Config");
   QStrList list;
@@ -206,7 +205,7 @@ void KSpriteSaver::readSettings()
   mTimerIds.resize(groups);
   for (int i = 0; i < groups; i++)
   {
-    debug("Group: %s", list.at(i));
+    kdDebug() << "Group: " << list.at(i) << endl;;
     mConfig->setGroup(list.at(i));
     SpriteGroup *obj = new SpriteGroup(mSpriteField, *mConfig);
     mTimerIds[i] = startTimer(obj->refreshTime());

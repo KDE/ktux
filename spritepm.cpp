@@ -51,7 +51,7 @@ const QPixmap *SpritePixmapManager::load(const QString & img)
         if (!pixmap->isNull())
         {
             mPixmaps.insert(img,pixmap);
-            debug("read successfully");
+            //kdDebug() << "read successfully" << endl;;
         }
         else
         {
@@ -119,7 +119,7 @@ SpritePixmapSequence *SpriteSequenceManager::load(KConfigBase &config,
 
     if (!sprite)
     {
-        debug("Reading sprite: %s", name.latin1());
+        kdDebug() << "Reading sprite: " << name << endl;
         config.setGroup(name);
         sprite = read(config);
         if (sprite)

@@ -8,6 +8,7 @@
 #include "spritemisc.h"
 #include "spritepm.h"
 #include "spriteanim.h"
+#include <kdebug.h>
 
 //===========================================================================
 //
@@ -93,7 +94,7 @@ void SpriteDef::read(KConfigBase &config)
     mZ = config.readNumEntry("Z", 1);
     QString animation = config.readEntry("Animation", "");
     mSeq = SpriteSequenceManager::manager()->load(config, animation);
-    debug("Set Z = %d", mZ);
+    kdDebug() << "Set Z = " << mZ << endl;
 }
 
 //===========================================================================
