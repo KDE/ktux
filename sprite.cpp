@@ -26,16 +26,16 @@
 // libkscreensaver interface
 extern "C"
 {
-    const char *kss_applicationName = "ktux";
-    const char *kss_description = I18N_NOOP( "Tux Screen Saver" );
-    const char *kss_version = "1.0.0";
+    KDE_EXPORT const char *kss_applicationName = "ktux";
+    KDE_EXPORT const char *kss_description = I18N_NOOP( "Tux Screen Saver" );
+    KDE_EXPORT const char *kss_version = "1.0.0";
 
-    KScreenSaver *kss_create( WId id )
+    KDE_EXPORT KScreenSaver *kss_create( WId id )
     {
         return new KSpriteSaver( id );
     }
 
-    QDialog *kss_setup()
+    KDE_EXPORT QDialog *kss_setup()
     {
         return new KSpriteSetup();
     }
