@@ -42,7 +42,7 @@ void SpriteRange::set(const QString &str)
     }
 }
 
-void SpriteRange::setFieldSize(QSize size)
+void SpriteRange::setFieldSize(const QSize &size)
 {
     mFieldSize = size;
 }

@@ -25,7 +25,7 @@ public:
     void set(int l, int h) { mMin=l; mMax=h; }
     void set(const QString &str);
 
-    static void setFieldSize(QSize size);
+    static void setFieldSize(const QSize &size);
     static QSize fieldSize() { return mFieldSize; }
 
 protected:
