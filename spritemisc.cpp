@@ -5,7 +5,7 @@
 // Copyright (c)  Martin R. Jones 1999
 //
 
-#include <stdlib.h>
+#include <kapp.h>
 #include "spritemisc.h"
 
 QSize SpriteRange::mFieldSize;
@@ -21,7 +21,7 @@ int SpriteRange::random() const
 
     if (mMax != mMin)
     {
-        val = (::random()%(mMax-mMin)) + mMin;
+        val = (KApplication::random()%(mMax-mMin)) + mMin;
     }
 
     return val;

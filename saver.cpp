@@ -4,6 +4,12 @@
 #include <klocale.h>
 #include <kstddirs.h>
 #include <X11/Xlib.h>
+#undef Bool
+#undef Left
+#undef Above
+#undef Below
+#undef Right
+#undef Both
 
 #include "saver.h"
 #include "saver.moc"
@@ -18,7 +24,7 @@ kScreenSaver::kScreenSaver(Drawable drawable) : QObject()
 	mDrawable = drawable;
 	mGc = XCreateGC(qt_xdisplay(), mDrawable, 0, 0);
 	XGetGeometry(qt_xdisplay(), mDrawable, &root, &ai, &ai,
-		&mWidth, &mHeight, &au, &au); 
+		&mWidth, &mHeight, &au, &au);
 }
 
 kScreenSaver::~kScreenSaver()

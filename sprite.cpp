@@ -11,8 +11,8 @@
 #include <qlabel.h>
 #include <qgrpbox.h>
 #include <qmsgbox.h>
-#include <qslider.h>
 #include <qlayout.h>
+#include <qslider.h>
 #include <kapp.h>
 #include <kglobal.h>
 #include <kstddirs.h>
@@ -30,6 +30,7 @@
 #include "sprite.moc"
 
 #include <X11/Xlib.h>
+#undef Bool
 
 static KSpriteSaver *saver = NULL;
 
@@ -38,7 +39,6 @@ static KSpriteSaver *saver = NULL;
 //
 void startScreenSaver(Drawable d)
 {
-  srandom(time(0));
   if (saver)
     return;
   saver = new KSpriteSaver(d);
@@ -73,7 +73,7 @@ KSpriteSetup::KSpriteSetup( QWidget *parent, const char *name )
   QHBoxLayout *tl1 = new QHBoxLayout;
   tl->addLayout(tl1);
   QVBoxLayout *tl11 = new QVBoxLayout(5);
-  tl1->addLayout(tl11);	
+  tl1->addLayout(tl11);
 
   QLabel *label = new QLabel( i18n("Speed:"), this );
   label->setMinimumSize(label->sizeHint());
@@ -93,12 +93,12 @@ KSpriteSetup::KSpriteSetup( QWidget *parent, const char *name )
   saver = new KSpriteSaver( preview->winId() );
   tl1->addWidget(preview);
 
-  KButtonBox *bbox = new KButtonBox(this);	
+  KButtonBox *bbox = new KButtonBox(this);
   QButton *button = bbox->addButton( i18n("About"));
   connect( button, SIGNAL( clicked() ), SLOT(slotAbout() ) );
   bbox->addStretch(1);
 
-  button = bbox->addButton( i18n("OK"));	
+  button = bbox->addButton( i18n("OK"));
   connect( button, SIGNAL( clicked() ), SLOT( slotOkPressed() ) );
 
   button = bbox->addButton(i18n("Cancel"));
@@ -146,8 +146,8 @@ void KSpriteSetup::slotOkPressed()
 
 void KSpriteSetup::slotAbout()
 {
-  QMessageBox::message(i18n("About KTux"), 
-    i18n("KTux Version 0.1\n\nwritten by Martin R. Jones 1999\nmjones@kde.org"), 
+  QMessageBox::message(i18n("About KTux"),
+    i18n("KTux Version 0.1\n\nwritten by Martin R. Jones 1999\nmjones@kde.org"),
     i18n("OK"));
 }
 

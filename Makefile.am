@@ -18,8 +18,8 @@ ktux_LDFLAGS = $(all_libraries) $(KDE_RPATH)
 ktux_LDADD   = $(LIB_KDEUI)
 
 # which sources should be compiled for ktux
-ktux_SOURCES =	main.cpp saver.cpp demowin.cpp sprite.cpp spriteanim.cpp \
-                spritemisc.cpp spritepm.cpp
+ktux_SOURCES =	main.cpp demowin.cpp spriteanim.cpp \
+                spritemisc.cpp spritepm.cpp saver.cpp sprite.cpp
 
 # these are the headers for your project
 noinst_HEADERS   = saver.h demowin.h vroot.h sprite.h spriteanim.h \
