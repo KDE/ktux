@@ -5,7 +5,7 @@
 // Copyright (c)  Martin R. Jones 1999
 //
 
-#include <kapp.h>
+#include <kapplication.h>
 #include "spritemisc.h"
 
 QSize SpriteRange::mFieldSize;
