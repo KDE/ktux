@@ -27,7 +27,7 @@
 extern "C"
 {
     const char *kss_applicationName = "ktux";
-    const char *kss_description = I18N_NOOP( "Tux Screensaver" );
+    const char *kss_description = I18N_NOOP( "Tux Screen Saver" );
     const char *kss_version = "1.0.0";
 
     KScreenSaver *kss_create( WId id )
@@ -129,7 +129,7 @@ void KSpriteSetup::slotOkPressed()
 void KSpriteSetup::slotAbout()
 {
   QMessageBox::message(i18n("About KTux"),
-    i18n("KTux Version 1.0\n\nwritten by Martin R. Jones 1999\nmjones@kde.org"),
+    i18n("KTux Version 1.0\n\nWritten by Martin R. Jones 1999\nmjones@kde.org"),
     i18n("OK"));
 }
 
