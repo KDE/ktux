@@ -9,8 +9,8 @@
 #include <time.h>
 #include <qcolor.h>
 #include <qlabel.h>
-#include <qgrpbox.h>
-#include <qmsgbox.h>
+#include <qgroupbox.h>
+#include <qmessagebox.h>
 #include <qlayout.h>
 #include <qslider.h>
 #include <kapp.h>

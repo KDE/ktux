@@ -9,7 +9,7 @@
 #define __SPRITE_H__
 
 #include <qtimer.h>
-#include <qpushbt.h>
+#include <qpushbutton.h>
 #include <qlist.h>
 #include <qstrlist.h>
 #include <qcanvas.h>
