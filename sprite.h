@@ -10,9 +10,12 @@
 
 #include <qtimer.h>
 #include <qpushbutton.h>
-#include <qptrlist.h>
-#include <qstrlist.h>
-#include <qcanvas.h>
+#include <q3ptrlist.h>
+#include <q3strlist.h>
+#include <q3canvas.h>
+//Added by qt3to4:
+#include <QTimerEvent>
+#include <QVector>
 #include <kscreensaver.h>
 #include "spriteanim.h"
 
@@ -38,12 +41,12 @@ protected:
     virtual void timerEvent(QTimerEvent *);
 
 protected:
-    QCanvas	*mCanvas;
-    QCanvasView	*mView;
+    Q3Canvas	*mCanvas;
+    Q3CanvasView	*mView;
     QTimer	mTimer;
     int                 mSpeed;
-    QPtrList<SpriteGroup>  mGroups;
-    QMemArray<int>    mTimerIds;
+    Q3PtrList<SpriteGroup>  mGroups;
+    QVector<int>    mTimerIds;
 };
 
 class KSpriteSetup : public QDialog

@@ -13,10 +13,10 @@
 #endif 
 
 #include <qpixmap.h>
-#include <qdict.h>                                                              
-#include <qptrlist.h>
-#include <qstrlist.h>
-#include <qcanvas.h>
+#include <q3dict.h>                                                              
+#include <q3ptrlist.h>
+#include <q3strlist.h>
+#include <q3canvas.h>
 #include <kconfigbase.h>
 #include <ksimpleconfig.h>                                                      
 
@@ -24,10 +24,10 @@
 //
 // SpriteObject stores the animations that create an object
 //
-class SpriteObject : public QCanvasSprite
+class SpriteObject : public Q3CanvasSprite
 {
 public:
-    SpriteObject(SpritePixmapSequence *seq, QCanvas *c);
+    SpriteObject(SpritePixmapSequence *seq, Q3Canvas *c);
 
     void setLifeSpan(int l) { mLifeSpan = l; }
     void age();
@@ -51,7 +51,7 @@ class SpriteDef
 public:
     SpriteDef(KConfigBase &config);
 
-    SpriteObject *create( QCanvas *c );
+    SpriteObject *create( Q3Canvas *c );
 
 protected:
     void read(KConfigBase &config);
@@ -75,7 +75,7 @@ protected:
 class SpriteGroup
 {
 public:
-    SpriteGroup(QCanvas *c, KConfigBase &config);
+    SpriteGroup(Q3Canvas *c, KConfigBase &config);
 
     void next();
     void refresh();
@@ -85,11 +85,11 @@ protected:
     void read(KConfigBase &config);
 
 protected:
-    QPtrList<SpriteDef>        mAvailable;
-    QPtrList<SpriteObject>     mActive;
+    Q3PtrList<SpriteDef>        mAvailable;
+    Q3PtrList<SpriteObject>     mActive;
     int                     mCount;
     SpriteRange             mRefresh;
-    QCanvas		    *mCanvas;
+    Q3Canvas		    *mCanvas;
 };
 
 #endif // SPRITEANIM_H

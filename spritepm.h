@@ -12,9 +12,12 @@
 #include <config.h>
 #endif 
 
-#include <qdict.h>
+#include <q3dict.h>
 #include <qpixmap.h>
-#include <qcanvas.h>
+#include <q3canvas.h>
+//Added by qt3to4:
+#include <Q3PtrList>
+#include <QVector>
 #include <kconfigbase.h>
 #include <ksimpleconfig.h>                                                      
 
@@ -40,21 +43,21 @@ public:
 
 public:
     QString        mPixmapDir;           // get pixmaps from here
-    QDict<QPixmap> mPixmaps;             // list of pixmaps
+    Q3Dict<QPixmap> mPixmaps;             // list of pixmaps
     static SpritePixmapManager *mManager; // static pointer to instance
 };
 
 //---------------------------------------------------------------------------
 //
-class SpritePixmapSequence : public QCanvasPixmapArray
+class SpritePixmapSequence : public Q3CanvasPixmapArray
 {
 public:
-    SpritePixmapSequence(QPtrList<QPixmap> pm, QPtrList<QPoint> hs, QMemArray<int> d);
+    SpritePixmapSequence(Q3PtrList<QPixmap> pm, Q3PtrList<QPoint> hs, QVector<int> d);
 
     int delay(int i) const { return mDelays[i]; }
 
 protected:
-    QMemArray<int> mDelays;
+    QVector<int> mDelays;
 };
 
 //---------------------------------------------------------------------------
@@ -77,7 +80,7 @@ protected:
     SpritePixmapSequence *read(KConfigBase &config);
 
 protected:
-    QDict<SpritePixmapSequence> mSprites;
+    Q3Dict<SpritePixmapSequence> mSprites;
     static SpriteSequenceManager *mManager;
 };
 

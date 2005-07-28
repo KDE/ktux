@@ -11,6 +11,14 @@
 #include <qmessagebox.h>
 #include <qlayout.h>
 #include <qslider.h>
+//Added by qt3to4:
+#include <Q3StrList>
+#include <QPixmap>
+#include <QTimerEvent>
+#include <QVBoxLayout>
+#include <Q3Frame>
+#include <QHBoxLayout>
+#include <QPushButton>
 #include <kstandarddirs.h>
 #include <klocale.h>
 #include <kdebug.h>
@@ -64,19 +72,19 @@ KSpriteSetup::KSpriteSetup( QWidget *parent, const char *name )
     tl11->addStretch(1);
     tl11->addWidget(label);
 
-    QSlider *sb = new QSlider(0, 100, 10, speed, QSlider::Horizontal, this );
+    QSlider *sb = new QSlider(0, 100, 10, speed, Qt::Horizontal, this );
     tl11->addWidget(sb);
     connect( sb, SIGNAL( valueChanged( int ) ), SLOT( slotSpeed( int ) ) );
 
     preview = new QWidget( this );
     preview->setFixedSize( 220, 170 );
-    preview->setBackgroundColor( black );
+    preview->setBackgroundColor( Qt::black );
     preview->show();    // otherwise saver does not get correct size
     saver = new KSpriteSaver( preview->winId() );
     tl1->addWidget(preview);
 
     KButtonBox *bbox = new KButtonBox(this);
-    QButton *button = bbox->addButton( i18n("About"));
+    QPushButton *button = bbox->addButton( i18n("About"));
     connect( button, SIGNAL( clicked() ), SLOT(slotAbout() ) );
     bbox->addStretch(1);
 
@@ -184,7 +192,7 @@ void KSpriteSaver::readSettings()
 
     KSimpleConfig *mConfig = new KSimpleConfig(path, true);
     mConfig->setGroup("Config");
-    QStrList list;
+    Q3StrList list;
     int groups = mConfig->readListEntry("Groups", list);
     mTimerIds.resize(groups);
     for (int i = 0; i < groups; i++)
@@ -201,16 +209,16 @@ void KSpriteSaver::readSettings()
 //-----------------------------------------------------------------------------
 void KSpriteSaver::initialise()
 {
-    mCanvas = new QCanvas();
+    mCanvas = new Q3Canvas();
     QPixmap pm( locate("sprite", "bg.png") );
     mCanvas->setBackgroundPixmap( pm );
     mCanvas->resize( width(), height() );
-    mView = new QCanvasView(mCanvas);
-    mView->viewport()->setBackgroundColor( black );
+    mView = new Q3CanvasView(mCanvas);
+    mView->viewport()->setBackgroundColor( Qt::black );
     mView->resize( size());
-    mView->setFrameStyle( QFrame::NoFrame );
-    mView->setVScrollBarMode( QScrollView::AlwaysOff );
-    mView->setHScrollBarMode( QScrollView::AlwaysOff );
+    mView->setFrameStyle( Q3Frame::NoFrame );
+    mView->setVScrollBarMode( Q3ScrollView::AlwaysOff );
+    mView->setHScrollBarMode( Q3ScrollView::AlwaysOff );
     embed( mView );
     mView->show();
     SpriteRange::setFieldSize(mView->size());
@@ -233,7 +241,7 @@ void KSpriteSaver::slotTimeout()
 //-----------------------------------------------------------------------------
 void KSpriteSaver::timerEvent(QTimerEvent *ev)
 {
-    for (unsigned i = 0; i < mTimerIds.size(); i++)
+    for (int i = 0; i < mTimerIds.size(); i++)
     {
 	if (mTimerIds[i] == ev->timerId())
 	{
@@ -248,7 +256,7 @@ void KSpriteSaver::timerEvent(QTimerEvent *ev)
 //-----------------------------------------------------------------------------
 void KSpriteSaver::blank()
 {
-    setBackgroundColor( black );
+    setBackgroundColor( Qt::black );
     erase();
 }
 

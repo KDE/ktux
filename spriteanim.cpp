@@ -9,13 +9,15 @@
 #include "spritepm.h"
 #include "spriteanim.h"
 #include <kdebug.h>
+//Added by qt3to4:
+#include <Q3StrList>
 
 //===========================================================================
 //
 // SpriteObject stores the animations that create an object
 //
-SpriteObject::SpriteObject(SpritePixmapSequence *seq, QCanvas *c )
-    : QCanvasSprite(seq, c),
+SpriteObject::SpriteObject(SpritePixmapSequence *seq, Q3Canvas *c )
+    : Q3CanvasSprite(seq, c),
       mCycle(0),
       mLifeSpan(-1),
       mSeq(seq)
@@ -58,7 +60,7 @@ SpriteDef::SpriteDef(KConfigBase &config)
 }
 
 //---------------------------------------------------------------------------
-SpriteObject *SpriteDef::create( QCanvas *c )
+SpriteObject *SpriteDef::create( Q3Canvas *c )
 {
     SpriteObject *sprite = 0;
     if (mSeq)
@@ -101,7 +103,7 @@ void SpriteDef::read(KConfigBase &config)
 //
 // SpriteGroup
 //
-SpriteGroup::SpriteGroup(QCanvas *c, KConfigBase &config)
+SpriteGroup::SpriteGroup(Q3Canvas *c, KConfigBase &config)
     : mCanvas(c)
 {
     mAvailable.setAutoDelete(true);
@@ -112,7 +114,7 @@ SpriteGroup::SpriteGroup(QCanvas *c, KConfigBase &config)
 //---------------------------------------------------------------------------
 void SpriteGroup::next()
 {
-    QPtrListIterator<SpriteObject> it(mActive);
+    Q3PtrListIterator<SpriteObject> it(mActive);
 
     for (; it.current(); ++it)
     {
@@ -148,7 +150,7 @@ void SpriteGroup::read(KConfigBase &config)
 
     mRefresh.set(config.readEntry("Refresh", "1000"));
 
-    QStrList anims;
+    Q3StrList anims;
     config.readListEntry("Animations", anims);
 
     for (anims.first(); anims.current(); anims.next())

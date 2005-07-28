@@ -8,6 +8,11 @@
 #include <stdlib.h>
 #include <kdebug.h>
 #include "spritepm.h"
+//Added by qt3to4:
+#include <Q3StrList>
+#include <QPixmap>
+#include <Q3PtrList>
+#include <QVector>
 
 // static
 SpritePixmapManager *SpritePixmapManager::mManager = 0;
@@ -79,9 +84,9 @@ SpritePixmapManager *SpritePixmapManager::manager()
 
 //===========================================================================
 //
-SpritePixmapSequence::SpritePixmapSequence(QPtrList<QPixmap> pm, QPtrList<QPoint> hs,
-        QMemArray<int> d)
-    : QCanvasPixmapArray(pm, hs), mDelays(d)
+SpritePixmapSequence::SpritePixmapSequence(Q3PtrList<QPixmap> pm, Q3PtrList<QPoint> hs,
+        QVector<int> d)
+    : Q3CanvasPixmapArray(pm, hs), mDelays(d)
 {
 }
 
@@ -135,15 +140,15 @@ SpritePixmapSequence *SpriteSequenceManager::load(KConfigBase &config,
 //
 SpritePixmapSequence *SpriteSequenceManager::read(KConfigBase &config)
 {
-    QStrList strImages;
-    QStrList strDelays;
-    QPtrList<QPixmap> pixmaps;
-    QPtrList<QPoint> hotspots;
+    Q3StrList strImages;
+    Q3StrList strDelays;
+    Q3PtrList<QPixmap> pixmaps;
+    Q3PtrList<QPoint> hotspots;
 
     int frames = config.readListEntry("Images", strImages);
     config.readListEntry("Delays", strDelays);
 
-    QMemArray<int> delays(frames);
+    QVector<int> delays(frames);
 
     for (int i = 0; i < frames; i++)
     {
