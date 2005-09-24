@@ -169,7 +169,7 @@ KSpriteSaver::~KSpriteSaver()
 void KSpriteSaver::setSpeed(int speed)
 {
     mSpeed = speed;
-    mTimer.changeInterval(120-mSpeed);
+    mTimer.start(120-mSpeed);
 }
 
 //-----------------------------------------------------------------------------
