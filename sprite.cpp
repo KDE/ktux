@@ -24,6 +24,7 @@
 #include <kdebug.h>
 #include <kstdguiitem.h>
 #include <kbuttonbox.h>
+#include <kguiitem.h>
 
 #include "spritepm.h"
 #include "spritemisc.h"
@@ -54,7 +55,7 @@ extern "C"
 KSpriteSetup::KSpriteSetup( QWidget *parent, const char *name )
   : QDialog( parent, name, TRUE )
 {
-    KGlobal::locale()->insertCatalogue("ktux");
+    KGlobal::locale()->insertCatalog("ktux");
     saver = 0;
 
     readSettings();
