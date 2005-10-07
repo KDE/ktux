@@ -30,7 +30,7 @@
 #include "spritemisc.h"
 #include "sprite.h"
 #include "sprite.moc"
-
+#include <krandom.h>
 
 // libkscreensaver interface
 extern "C"

@@ -8,7 +8,7 @@
 #include <kapplication.h>
 #include <krandom.h>
 #include "spritemisc.h"
-
+#include <krandom.h>
 QSize SpriteRange::mFieldSize;
 
 SpriteRange::SpriteRange(const QString &str)
