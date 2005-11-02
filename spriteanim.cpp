@@ -150,12 +150,14 @@ void SpriteGroup::read(KConfigBase &config)
 
     mRefresh.set(config.readEntry("Refresh", "1000"));
 
-    Q3StrList anims;
-    config.readListEntry("Animations", anims);
+    QStringList anims;
+    anims = config.readListEntry("Animations");
 
-    for (anims.first(); anims.current(); anims.next())
+    QStringList::const_iterator lst;
+	
+	for (lst = anims.constBegin(); lst != anims.constEnd(); ++lst)
     {
-        config.setGroup(anims.current());
+        config.setGroup((*lst));
         SpriteDef *obj = new SpriteDef(config);
         mAvailable.append(obj);
     }

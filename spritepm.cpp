@@ -140,15 +140,15 @@ SpritePixmapSequence *SpriteSequenceManager::load(KConfigBase &config,
 //
 SpritePixmapSequence *SpriteSequenceManager::read(KConfigBase &config)
 {
-    Q3StrList strImages;
-    Q3StrList strDelays;
+    QStringList strImages;
+    QStringList strDelays;
     Q3PtrList<QPixmap> pixmaps;
     Q3PtrList<QPoint> hotspots;
 
-    int frames = config.readListEntry("Images", strImages);
-    config.readListEntry("Delays", strDelays);
+    strImages = config.readListEntry("Images");
+    strDelays = config.readListEntry("Delays");
 
-    QVector<int> delays(frames);
+    QVector<int> delays(strImages.count());
 
     for (int i = 0; i < frames; i++)
     {
