@@ -193,10 +193,10 @@ void KSpriteSaver::readSettings()
 
     KSimpleConfig *mConfig = new KSimpleConfig(path, true);
     mConfig->setGroup("Config");
-    Q3StrList list;
-    int groups = mConfig->readListEntry("Groups", list);
-    mTimerIds.resize(groups);
-    for (int i = 0; i < groups; i++)
+    QStringList list;
+    list = mConfig->readListEntry("Groups");
+    mTimerIds.resize(list.count());
+    for (int i = 0; i < list.count(); i++)
     {
 	kdDebug() << "Group: " << list.at(i) << endl;;
 	mConfig->setGroup(list.at(i));

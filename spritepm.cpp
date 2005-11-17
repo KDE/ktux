@@ -150,7 +150,7 @@ SpritePixmapSequence *SpriteSequenceManager::read(KConfigBase &config)
 
     QVector<int> delays(strImages.count());
 
-    for (int i = 0; i < frames; i++)
+    for (int i = 0; i < strImages.count(); i++)
     {
         const QPixmap *pixmap =
                     SpritePixmapManager::manager()->load(strImages.at(i));
@@ -158,7 +158,7 @@ SpritePixmapSequence *SpriteSequenceManager::read(KConfigBase &config)
         {
             pixmaps.append(pixmap);
             hotspots.append(new QPoint(0,0));
-            delays[i] = atoi(strDelays.at(i));
+            delays[i] = strDelays.at(i).toInt();
         }
     }
 
