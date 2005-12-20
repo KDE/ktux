@@ -9,9 +9,6 @@
 #include "spritepm.h"
 #include "spriteanim.h"
 #include <kdebug.h>
-//Added by qt3to4:
-#include <Q3StrList>
-
 //===========================================================================
 //
 // SpriteObject stores the animations that create an object

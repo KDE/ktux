@@ -8,8 +8,6 @@
 #include <stdlib.h>
 #include <kdebug.h>
 #include "spritepm.h"
-//Added by qt3to4:
-#include <Q3StrList>
 #include <QPixmap>
 #include <Q3PtrList>
 #include <QVector>
