@@ -229,7 +229,7 @@ void KSpriteSaver::slotTimeout()
     mTimer.start(120-mSpeed, true);
     SpriteGroup *grp;
 
-    for (grp = mGroups.first(); grp; grp = mGroups.next())
+	Q_FOREACH( grp, mGroups )
     {
 	grp->next();
     }

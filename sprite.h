@@ -45,7 +45,7 @@ protected:
     Q3CanvasView	*mView;
     QTimer	mTimer;
     int                 mSpeed;
-    Q3PtrList<SpriteGroup>  mGroups;
+    QList<SpriteGroup*>  mGroups;
     QVector<int>    mTimerIds;
 };
 
