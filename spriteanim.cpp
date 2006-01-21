@@ -89,8 +89,8 @@ void SpriteDef::read(KConfigBase &config)
     mStartY.set(config.readEntry("StartY", "0"));
     mEndX.set(config.readEntry("EndX", "10000"));
     mEndY.set(config.readEntry("EndY", "10000"));
-    mLifeSpan = config.readNumEntry("LifeSpan", -1);
-    mZ = config.readNumEntry("Z", 1);
+    mLifeSpan = config.readEntry("LifeSpan", -1);
+    mZ = config.readEntry("Z", 1);
     QString animation = config.readEntry("Animation", "");
     mSeq = SpriteSequenceManager::manager()->load(config, animation);
     kdDebug() << "Set Z = " << mZ << endl;

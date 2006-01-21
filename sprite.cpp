@@ -109,7 +109,7 @@ void KSpriteSetup::readSettings()
     KConfig *config = KGlobal::config();
     config->setGroup( "Settings" );
 
-    speed = config->readNumEntry( "Speed", 50 );
+    speed = config->readEntry( "Speed", 50 );
     if (speed > 100)
 	speed = 100;
     else if (speed < 0)
@@ -181,7 +181,7 @@ void KSpriteSaver::readSettings()
     KConfig *config = KGlobal::config();
     config->setGroup("Settings");
 
-    mSpeed = config->readNumEntry("Speed", 50);
+    mSpeed = config->readEntry("Speed", 50);
 
     QString path = KGlobal::dirs()->findResourceDir( "sprite", "bg.png" );
 
