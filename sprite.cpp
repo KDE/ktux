@@ -192,7 +192,7 @@ void KSpriteSaver::readSettings()
     KSimpleConfig *mConfig = new KSimpleConfig(path, true);
     mConfig->setGroup("Config");
     QStringList list;
-    list = mConfig->readListEntry("Groups");
+    list = mConfig->readEntry("Groups",list);
     mTimerIds.resize(list.count());
     for (int i = 0; i < list.count(); i++)
     {

@@ -148,7 +148,7 @@ void SpriteGroup::read(KConfigBase &config)
     mRefresh.set(config.readEntry("Refresh", "1000"));
 
     QStringList anims;
-    anims = config.readListEntry("Animations");
+    anims = config.readEntry("Animations",anims);
 
     QStringList::const_iterator lst;
 	

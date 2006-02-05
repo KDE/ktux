@@ -143,8 +143,8 @@ SpritePixmapSequence *SpriteSequenceManager::read(KConfigBase &config)
     Q3PtrList<QPixmap> pixmaps;
     Q3PtrList<QPoint> hotspots;
 
-    strImages = config.readListEntry("Images");
-    strDelays = config.readListEntry("Delays");
+    strImages = config.readEntry("Images",QStringList());
+    strDelays = config.readEntry("Delays",QStringList());
 
     QVector<int> delays(strImages.count());
 
