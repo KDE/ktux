@@ -12,18 +12,21 @@ Terminal=false
 [Desktop Action Setup]
 Exec=ktux -setup
 Name=Setup...
+Name[fr]=Configuration...
 Name[x-test]=xxSetup...xx
 Icon=kscreensaver
 
 [Desktop Action InWindow]
 Exec=ktux -window-id %w
 Name=Display in Specified Window
+Name[fr]=Affichage dans la fenêtre indiquée
 Name[x-test]=xxDisplay in Specified Windowxx
 NoDisplay=true
 
 [Desktop Action Root]
 Exec=ktux -root
 Name=Display in Root Window
+Name[fr]=Affichage dans la fenêtre principale
 Name[x-test]=xxDisplay in Root Windowxx
 NoDisplay=true
 X-DCOP-ServiceType=Multi
