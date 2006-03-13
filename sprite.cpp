@@ -31,21 +31,31 @@
 #include <krandom.h>
 
 // libkscreensaver interface
-extern "C"
+class KSpriteSaverInterface : public KScreenSaverInterface
 {
-    KDE_EXPORT const char *kss_applicationName = "ktux";
-    KDE_EXPORT const char *kss_description = I18N_NOOP( "Tux Screen Saver" );
-    KDE_EXPORT const char *kss_version = "1.0.0";
 
-    KDE_EXPORT KScreenSaver *kss_create( WId id )
+
+public:
+    virtual KAboutData* aboutData() {
+        return new KAboutData( "ktux", I18N_NOOP( "Tux Screen Saver" ), "1.0.0", I18N_NOOP( "Tux Screen Saver" ) );
+    }
+
+
+    virtual KScreenSaver* create( WId id )
     {
         return new KSpriteSaver( id );
     }
 
-    KDE_EXPORT QDialog *kss_setup()
+    virtual QDialog* setup()
     {
         return new KSpriteSetup();
     }
+};
+
+int main( int argc, char *argv[] )
+{
+    KSpriteSaverInterface kss;
+    return kScreenSaverMain( argc, argv, kss );
 }
 
 //-----------------------------------------------------------------------------
