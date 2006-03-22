@@ -17,7 +17,7 @@ kde4_automoc(${ktux_SRCS})
 
 kde4_add_executable(ktux ${ktux_SRCS})
 
-target_link_libraries(ktux  ${QT_AND_KDECORE_LIBS} kdeui kscreensaver )
+target_link_libraries(ktux  ${KDE4_KDECORE_LIBS} kdeui kscreensaver )
 
 install_targets(/bin ktux )
 
