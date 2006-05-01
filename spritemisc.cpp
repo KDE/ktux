@@ -30,7 +30,7 @@ int SpriteRange::random() const
 
 void SpriteRange::set(const QString &str)
 {
-    int r = str.find("..");
+    int r = str.indexOf("..");
 
     if (r > 0)
     {
