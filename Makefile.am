@@ -26,11 +26,6 @@ noinst_HEADERS   = sprite.h spriteanim.h spritemisc.h spritepm.h
 # let automoc handle all of the meta source files (moc)
 METASOURCES = AUTO
 
-# make messages.po. Move this one to ../po/ and "make merge" in po
-# the -x is for skipping messages already translated in kdelibs
-messages:
-	$(XGETTEXT) *.cpp -o $(podir)/ktux.pot
-
 KDE_ICON = ktux
 
 appsdir   = $(kde_appsdir)/System/ScreenSavers
