@@ -68,7 +68,7 @@ KSpriteSetup::KSpriteSetup( QWidget *parent, const char *name )
 
     readSettings();
 
-    setCaption(i18n("Setup KTux") );
+    setWindowTitle(i18n("Setup KTux") );
 
     QVBoxLayout *tl = new QVBoxLayout(this, 10, 10);
     QHBoxLayout *tl1 = new QHBoxLayout;
