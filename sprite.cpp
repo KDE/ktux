@@ -70,10 +70,13 @@ KSpriteSetup::KSpriteSetup( QWidget *parent, const char *name )
 
     setWindowTitle(i18n("Setup KTux") );
 
-    QVBoxLayout *tl = new QVBoxLayout(this, 10, 10);
+    QVBoxLayout *tl = new QVBoxLayout(this);
+    tl->setSpacing(10);
+    tl->setMargin(10);
     QHBoxLayout *tl1 = new QHBoxLayout;
     tl->addLayout(tl1);
-    QVBoxLayout *tl11 = new QVBoxLayout(5);
+    QVBoxLayout *tl11 = new QVBoxLayout();
+    tl11->setSpacing( 5 );
     tl1->addLayout(tl11);
 
     QLabel *label = new QLabel( i18n("Speed:"), this );
