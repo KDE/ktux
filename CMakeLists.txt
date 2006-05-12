@@ -1,4 +1,3 @@
-kde4_header()
 
 add_subdirectory( sprites ) 
 
@@ -28,7 +27,6 @@ install_files( ${APPLNK_INSTALL_DIR}/System/ScreenSavers FILES ktux.desktop )
 
 kde4_install_icons(${ICON_INSTALL_DIR} crystalsvg )
 
-kde4_footer()
 
 
 
