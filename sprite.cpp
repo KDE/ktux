@@ -269,6 +269,6 @@ void KSpriteSaver::timerEvent(QTimerEvent *ev)
 void KSpriteSaver::blank()
 {
     setBackgroundColor( Qt::black );
-    erase();
+    update();
 }
 
