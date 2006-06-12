@@ -2,7 +2,7 @@
 //
 // spritemisc
 //
-// Copyright (c)  Martin R. Jones 1999
+// Copyright Martin R. Jones 1999 <mjones@kde.org>
 //
 
 #ifndef __SPRITEMISC_H__

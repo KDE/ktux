@@ -2,7 +2,7 @@
 //
 // KTux - QCanvas based screensaver
 //
-// Copyright (c)  Martin R. Jones 1999
+// Copyright Martin R. Jones 1999 <mjones@kde.org>
 //
 
 #include <stdlib.h>
@@ -61,7 +61,7 @@ int main( int argc, char *argv[] )
 //-----------------------------------------------------------------------------
 
 KSpriteSetup::KSpriteSetup( QWidget *parent, const char *name )
-  : QDialog( parent, name, TRUE )
+  : QDialog( parent, name, true )
 {
     KGlobal::locale()->insertCatalog("ktux");
     saver = 0;

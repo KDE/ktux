@@ -2,7 +2,7 @@
 //
 // ksprite - QCanvas based screensaver
 //
-// Copyright (c)  Martin R. Jones 1996
+// Copyright Martin R. Jones 1996 <mjones@kde.org>
 //
 
 #ifndef __SPRITE_H__
