@@ -133,6 +133,7 @@ Name[tg]=Дар Тирезаи Муайяншуда Намоиш додан
 Name[tr]=Belirtilen Pencerede Göster
 Name[uk]=Відобразити у вказаному вікні
 Name[zh_CN]=在指定的窗口中显示
+Name[zh_TW]=在指定的視窗中顯示
 NoDisplay=true
 
 [Desktop Action Root]
@@ -184,5 +185,6 @@ Name[tg]=Дар Тирезаи Решавӣ Намоиш додан
 Name[tr]=Kök Pencerede Göster
 Name[uk]=Відобразити на тлі екрана
 Name[zh_CN]=在根窗口中显示
+Name[zh_TW]=在根視窗中顯示
 NoDisplay=true
 X-DCOP-ServiceType=Multi
