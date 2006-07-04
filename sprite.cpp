@@ -222,7 +222,7 @@ void KSpriteSaver::readSettings()
 void KSpriteSaver::initialise()
 {
     mCanvas = new Q3Canvas();
-    QPixmap pm( locate("sprite", "bg.png") );
+    QPixmap pm( KStandardDirs::locate("sprite", "bg.png") );
     mCanvas->setBackgroundPixmap( pm );
     mCanvas->resize( width(), height() );
     mView = new Q3CanvasView(mCanvas);
