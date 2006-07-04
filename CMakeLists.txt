@@ -18,12 +18,12 @@ kde4_add_executable(ktux ${ktux_SRCS})
 
 target_link_libraries(ktux  ${KDE4_KDECORE_LIBS} kdeui kscreensaver )
 
-install_targets(/bin ktux )
+install(TARGETS ktux  DESTINATION ${BIN_INSTALL_DIR} )
 
 
 ########### install files ###############
 
-install_files( ${APPLNK_INSTALL_DIR}/System/ScreenSavers FILES ktux.desktop )
+install( FILES ktux.desktop  DESTINATION ${APPLNK_INSTALL_DIR}/System/ScreenSavers)
 
 kde4_install_icons(${ICON_INSTALL_DIR} crystalsvg )
 
