@@ -1,4 +1,4 @@
-
+project(ktux)
 add_subdirectory( sprites ) 
 
 
@@ -16,7 +16,7 @@ kde4_automoc(${ktux_SRCS})
 
 kde4_add_executable(ktux ${ktux_SRCS})
 
-target_link_libraries(ktux  ${KDE4_KDECORE_LIBS} kdeui kscreensaver )
+target_link_libraries(ktux  ${KDE4_KDEUI_LIBS} kscreensaver )
 
 install(TARGETS ktux  DESTINATION ${BIN_INSTALL_DIR} )
 
