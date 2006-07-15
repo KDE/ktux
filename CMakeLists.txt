@@ -23,7 +23,7 @@ install(TARGETS ktux  DESTINATION ${BIN_INSTALL_DIR} )
 
 ########### install files ###############
 
-install( FILES ktux.desktop  DESTINATION ${APPLNK_INSTALL_DIR}/System/ScreenSavers)
+install( FILES ktux.desktop  DESTINATION  ${SERVICES_INSTALL_DIR}/ScreenSavers )
 
 kde4_install_icons(${ICON_INSTALL_DIR} crystalsvg )
 
