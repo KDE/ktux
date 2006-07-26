@@ -25,7 +25,7 @@ install(TARGETS ktux  DESTINATION ${BIN_INSTALL_DIR} )
 
 install( FILES ktux.desktop  DESTINATION  ${SERVICES_INSTALL_DIR}/ScreenSavers )
 
-kde4_install_icons(${ICON_INSTALL_DIR} crystalsvg )
+kde4_install_icons(${ICON_INSTALL_DIR} hicolor )
 
 
 
