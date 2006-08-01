@@ -165,7 +165,8 @@ KSpriteSaver::KSpriteSaver( WId id ) : KScreenSaver( id )
     blank();
 
     connect(&mTimer, SIGNAL(timeout()), SLOT(slotTimeout()));
-    mTimer.start(120-mSpeed, true);
+    mTimer.setSingleShot(true);
+    mTimer.start(120-mSpeed);
 }
 
 //-----------------------------------------------------------------------------
@@ -239,7 +240,8 @@ void KSpriteSaver::initialise()
 //-----------------------------------------------------------------------------
 void KSpriteSaver::slotTimeout()
 {
-    mTimer.start(120-mSpeed, true);
+    mTimer.setSingleShot(true);
+    mTimer.start(120-mSpeed);
     SpriteGroup *grp;
 
 	Q_FOREACH( grp, mGroups )
