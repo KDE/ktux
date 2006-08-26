@@ -8,9 +8,7 @@
 #ifndef SPRITEPM_H
 #define SPRITEPM_H
 
-#ifdef HAVE_CONFIG_H
 #include <config.h>
-#endif 
 
 #include <q3dict.h>
 #include <qpixmap.h>

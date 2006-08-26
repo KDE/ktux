@@ -8,9 +8,7 @@
 #ifndef SPRITEANIM_H
 #define SPRITEANIM_H
 
-#ifdef HAVE_CONFIG_H
 #include <config.h>
-#endif 
 
 #include <qpixmap.h>
 #include <q3dict.h>                                                              
