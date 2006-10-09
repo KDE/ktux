@@ -14,7 +14,7 @@
 #include <QPixmap>
 #include <QTimerEvent>
 #include <QVBoxLayout>
-#include <Q3Frame>
+#include <QFrame>
 #include <QHBoxLayout>
 #include <QPushButton>
 #include <kstandarddirs.h>
@@ -229,7 +229,7 @@ void KSpriteSaver::initialise()
     mView = new Q3CanvasView(mCanvas);
     mView->viewport()->setBackgroundColor( Qt::black );
     mView->resize( size());
-    mView->setFrameStyle( Q3Frame::NoFrame );
+    mView->setFrameStyle( QFrame::NoFrame );
     mView->setVScrollBarMode( Q3ScrollView::AlwaysOff );
     mView->setHScrollBarMode( Q3ScrollView::AlwaysOff );
     embed( mView );
