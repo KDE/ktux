@@ -30,4 +30,4 @@ Name=Display in Root Window
 Name[fr]=Affichage dans la fenêtre principale
 Name[x-test]=xxDisplay in Root Windowxx
 NoDisplay=true
-X-DCOP-ServiceType=Multi
+X-DBUS-StartupType=Multi
