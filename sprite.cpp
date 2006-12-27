@@ -20,7 +20,7 @@
 #include <kstandarddirs.h>
 #include <klocale.h>
 #include <kdebug.h>
-#include <kstdguiitem.h>
+#include <KStandardGuiItem>
 #include <kbuttonbox.h>
 #include <kguiitem.h>
 
@@ -100,10 +100,10 @@ KSpriteSetup::KSpriteSetup( QWidget *parent, const char *name )
     connect( button, SIGNAL( clicked() ), SLOT(slotAbout() ) );
     bbox->addStretch(1);
 
-    button = bbox->addButton( KStdGuiItem::ok());
+    button = bbox->addButton( KStandardGuiItem::ok());
     connect( button, SIGNAL( clicked() ), SLOT( slotOkPressed() ) );
 
-    button = bbox->addButton(KStdGuiItem::cancel());
+    button = bbox->addButton(KStandardGuiItem::cancel());
     connect( button, SIGNAL( clicked() ), SLOT( reject() ) );
     bbox->layout();
     tl->addWidget(bbox);
