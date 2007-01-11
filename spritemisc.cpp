@@ -5,7 +5,6 @@
 // Copyright Martin R. Jones 1999 <mjones@kde.org>
 //
 
-#include <kapplication.h>
 #include <krandom.h>
 #include "spritemisc.h"
 #include <krandom.h>
