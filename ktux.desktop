@@ -13,6 +13,7 @@ Terminal=false
 [Desktop Action Setup]
 Exec=ktux -setup
 Name=Setup...
+Name[el]=Ρύθμιση...
 Name[fr]=Configuration...
 Name[x-test]=xxSetup...xx
 Icon=kscreensaver
@@ -20,6 +21,7 @@ Icon=kscreensaver
 [Desktop Action InWindow]
 Exec=ktux -window-id %w
 Name=Display in Specified Window
+Name[el]=Εμφάνιση σε προκαθορισμένο παράθυρο
 Name[fr]=Affichage dans la fenêtre indiquée
 Name[x-test]=xxDisplay in Specified Windowxx
 NoDisplay=true
@@ -27,6 +29,7 @@ NoDisplay=true
 [Desktop Action Root]
 Exec=ktux -root
 Name=Display in Root Window
+Name[el]=Προβολή στο βασικό παράθυρο
 Name[fr]=Affichage dans la fenêtre principale
 Name[x-test]=xxDisplay in Root Windowxx
 NoDisplay=true
