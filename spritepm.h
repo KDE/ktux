@@ -8,8 +8,6 @@
 #ifndef SPRITEPM_H
 #define SPRITEPM_H
 
-#include <config.h>
-
 #include <q3dict.h>
 #include <qpixmap.h>
 #include <q3canvas.h>
@@ -17,7 +15,7 @@
 #include <Q3PtrList>
 #include <QVector>
 #include <kconfigbase.h>
-#include <ksimpleconfig.h>                                                      
+#include <ksimpleconfig.h>
 
 //---------------------------------------------------------------------------
 //

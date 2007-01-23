@@ -8,15 +8,13 @@
 #ifndef SPRITEANIM_H
 #define SPRITEANIM_H
 
-#include <config.h>
-
 #include <qpixmap.h>
-#include <q3dict.h>                                                              
+#include <q3dict.h>
 #include <q3ptrlist.h>
 #include <q3strlist.h>
 #include <q3canvas.h>
 #include <kconfigbase.h>
-#include <ksimpleconfig.h>                                                      
+#include <ksimpleconfig.h>
 
 //---------------------------------------------------------------------------
 //
