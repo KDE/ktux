@@ -119,7 +119,7 @@ KSpriteSetup::~KSpriteSetup()
 // read settings from config file
 void KSpriteSetup::readSettings()
 {
-    KConfig *config = KGlobal::config();
+    KSharedConfig::Ptr config = KGlobal::config();
     config->setGroup( "Settings" );
 
     speed = config->readEntry( "Speed", 50 );
@@ -139,7 +139,7 @@ void KSpriteSetup::slotSpeed(int s)
 // Ok pressed - save settings and exit
 void KSpriteSetup::slotOkPressed()
 {
-    KConfig *config = KGlobal::config();
+    KSharedConfig::Ptr config = KGlobal::config();
     config->setGroup("Settings");
     config->writeEntry("Speed", speed);
     config->sync();
@@ -192,7 +192,7 @@ void KSpriteSaver::readSettings()
 {
     QString str;
 
-    KConfig *config = KGlobal::config();
+    KSharedConfig::Ptr config = KGlobal::config();
     config->setGroup("Settings");
 
     mSpeed = config->readEntry("Speed", 50);
