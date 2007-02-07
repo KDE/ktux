@@ -45,7 +45,7 @@ protected:
 class SpriteDef
 {
 public:
-    SpriteDef(KConfigBase &config);
+    explicit SpriteDef(KConfigBase &config);
 
     SpriteObject *create( Q3Canvas *c );
 

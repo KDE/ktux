@@ -24,7 +24,7 @@ class KSpriteSaver : public KScreenSaver
 {
 	Q_OBJECT
 public:
-    KSpriteSaver( WId id );
+    explicit KSpriteSaver( WId id );
     virtual ~KSpriteSaver();
 
     void setSpeed(int speed);
@@ -53,7 +53,7 @@ class KSpriteSetup : public QDialog
 {
     Q_OBJECT
 public:
-    KSpriteSetup( QWidget *parent = NULL, const char *name = NULL );
+    explicit KSpriteSetup( QWidget *parent = NULL, const char *name = NULL );
     ~KSpriteSetup();
 
 protected:
