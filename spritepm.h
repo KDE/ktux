@@ -15,7 +15,7 @@
 #include <Q3PtrList>
 #include <QVector>
 #include <kconfigbase.h>
-#include <ksimpleconfig.h>
+#include <kconfig.h>
 
 //---------------------------------------------------------------------------
 //

@@ -14,7 +14,7 @@
 #include <q3strlist.h>
 #include <q3canvas.h>
 #include <kconfigbase.h>
-#include <ksimpleconfig.h>
+#include <kconfig.h>
 
 //---------------------------------------------------------------------------
 //

@@ -119,10 +119,9 @@ KSpriteSetup::~KSpriteSetup()
 // read settings from config file
 void KSpriteSetup::readSettings()
 {
-    KSharedConfig::Ptr config = KGlobal::config();
-    config->setGroup( "Settings" );
+    KConfigGroup config(KGlobal::config(), "Settings");
 
-    speed = config->readEntry( "Speed", 50 );
+    speed = config.readEntry( "Speed", 50 );
     if (speed > 100)
 	speed = 100;
     else if (speed < 0)
@@ -139,10 +138,9 @@ void KSpriteSetup::slotSpeed(int s)
 // Ok pressed - save settings and exit
 void KSpriteSetup::slotOkPressed()
 {
-    KSharedConfig::Ptr config = KGlobal::config();
-    config->setGroup("Settings");
-    config->writeEntry("Speed", speed);
-    config->sync();
+    KConfigGroup config(KGlobal::config(), "Settings");
+    config.writeEntry("Speed", speed);
+    config.sync();
     accept();
 }
 
@@ -192,10 +190,9 @@ void KSpriteSaver::readSettings()
 {
     QString str;
 
-    KSharedConfig::Ptr config = KGlobal::config();
-    config->setGroup("Settings");
+    KConfigGroup config(KGlobal::config(), "Settings");
 
-    mSpeed = config->readEntry("Speed", 50);
+    mSpeed = config.readEntry("Speed", 50);
 
     QString path = KGlobal::dirs()->findResourceDir( "sprite", "bg.png" );
 
@@ -203,20 +200,20 @@ void KSpriteSaver::readSettings()
 
     path += "spriterc";
 
-    KSimpleConfig *mConfig = new KSimpleConfig(path, true);
-    mConfig->setGroup("Config");
+    KConfig *pConfig = new KConfig(path);
+    KConfigGroup mConfig(pConfig, "Config");
     QStringList list;
-    list = mConfig->readEntry("Groups",list);
+    list = mConfig.readEntry("Groups",list);
     mTimerIds.resize(list.count());
     for (int i = 0; i < list.count(); i++)
     {
 	kDebug() << "Group: " << list.at(i) << endl;;
-	mConfig->setGroup(list.at(i));
-	SpriteGroup *obj = new SpriteGroup(mCanvas, *mConfig);
+	mConfig.changeGroup(list.at(i));
+	SpriteGroup *obj = new SpriteGroup(mCanvas, *pConfig);
 	mTimerIds[i] = startTimer(obj->refreshTime());
 	mGroups.append(obj);
     }
-    delete mConfig;
+    delete pConfig;
 }
 
 //-----------------------------------------------------------------------------
