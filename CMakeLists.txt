@@ -1,6 +1,6 @@
 project(ktux)
 add_subdirectory( sprites ) 
-
+add_definitions (-DQT3_SUPPORT)
 ########### next target ###############
 
 set(ktux_SRCS 

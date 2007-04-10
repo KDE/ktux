@@ -61,8 +61,10 @@ int main( int argc, char *argv[] )
 //-----------------------------------------------------------------------------
 
 KSpriteSetup::KSpriteSetup( QWidget *parent, const char *name )
-  : QDialog( parent, name, true )
+  : QDialog( parent )
 {
+    setObjectName(name);
+    setModal(true);
     KGlobal::locale()->insertCatalog("ktux");
     saver = 0;
 
@@ -84,13 +86,21 @@ KSpriteSetup::KSpriteSetup( QWidget *parent, const char *name )
     tl11->addStretch(1);
     tl11->addWidget(label);
 
-    QSlider *sb = new QSlider(0, 100, 10, speed, Qt::Horizontal, this );
+    QSlider *sb = new QSlider( Qt::Horizontal,this);
+    sb->setMinimum(0);
+    sb->setMaximum(100);
+    sb->setPageStep(10);
+    sb->setValue(speed);
     tl11->addWidget(sb);
     connect( sb, SIGNAL( valueChanged( int ) ), SLOT( slotSpeed( int ) ) );
 
     preview = new QWidget( this );
     preview->setFixedSize( 220, 170 );
-    preview->setBackgroundColor( Qt::black );
+
+    QPalette palette;
+    palette.setColor(preview->backgroundRole(), Qt::black);
+    preview->setPalette(palette);
+
     preview->show();    // otherwise saver does not get correct size
     saver = new KSpriteSaver( preview->winId() );
     tl1->addWidget(preview);
@@ -146,7 +156,7 @@ void KSpriteSetup::slotOkPressed()
 
 void KSpriteSetup::slotAbout()
 {
-  QMessageBox::message(i18n("About KTux"),
+  QMessageBox::information(this, i18n("About KTux"),
     i18n("KTux Version 1.0\n\nWritten by Martin R. Jones 1999\nmjones@kde.org"),
     i18n("OK"));
 }
@@ -224,7 +234,11 @@ void KSpriteSaver::initialise()
     mCanvas->setBackgroundPixmap( pm );
     mCanvas->resize( width(), height() );
     mView = new Q3CanvasView(mCanvas);
-    mView->viewport()->setBackgroundColor( Qt::black );
+
+    QPalette palette;
+    palette.setColor(mView->viewport()->backgroundRole(), Qt::black);
+    mView->viewport()->setPalette(palette);
+
     mView->resize( size());
     mView->setFrameStyle( QFrame::NoFrame );
     mView->setVScrollBarMode( Q3ScrollView::AlwaysOff );
@@ -267,7 +281,10 @@ void KSpriteSaver::timerEvent(QTimerEvent *ev)
 //-----------------------------------------------------------------------------
 void KSpriteSaver::blank()
 {
-    setBackgroundColor( Qt::black );
+    QPalette palette;
+    palette.setColor(this->backgroundRole(), Qt::black);
+    this->setPalette(palette);
+
     update();
 }
 
