@@ -5,9 +5,10 @@
 // Copyright (c) 1999 Martin R. Jones <mjones@kde.org>
 //
 
+#include "spriteanim.h"
 #include "spritemisc.h"
 #include "spritepm.h"
-#include "spriteanim.h"
+
 #include <kdebug.h>
 //===========================================================================
 //

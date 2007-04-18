@@ -5,9 +5,10 @@
 // Copyright Martin R. Jones 1999 <mjones@kde.org>
 //
 
-#include <krandom.h>
 #include "spritemisc.h"
+
 #include <krandom.h>
+
 QSize SpriteRange::mFieldSize;
 
 SpriteRange::SpriteRange(const QString &str)

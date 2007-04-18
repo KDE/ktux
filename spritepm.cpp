@@ -5,9 +5,10 @@
 // Copyright (c) 1999 Martin R. Jones <mjones@kde.org>
 //
 
+#include "spritepm.h"
+
 #include <stdlib.h>
 #include <kdebug.h>
-#include "spritepm.h"
 #include <QPixmap>
 #include <Q3PtrList>
 #include <QVector>

@@ -5,6 +5,11 @@
 // Copyright Martin R. Jones 1999 <mjones@kde.org>
 //
 
+#include "sprite.h"
+#include "spritepm.h"
+#include "spritemisc.h"
+#include "sprite.moc"
+
 #include <stdlib.h>
 #include <time.h>
 #include <qlabel.h>
@@ -23,11 +28,6 @@
 #include <KStandardGuiItem>
 #include <kbuttonbox.h>
 #include <kguiitem.h>
-
-#include "spritepm.h"
-#include "spritemisc.h"
-#include "sprite.h"
-#include "sprite.moc"
 #include <krandom.h>
 
 // libkscreensaver interface

@@ -8,6 +8,9 @@
 #ifndef SPRITEANIM_H
 #define SPRITEANIM_H
 
+#include "spritemisc.h"
+#include "spritepm.h"
+
 #include <qpixmap.h>
 #include <q3dict.h>
 #include <q3ptrlist.h>

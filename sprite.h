@@ -16,6 +16,7 @@
 //Added by qt3to4:
 #include <QTimerEvent>
 #include <QVector>
+#include <QDialog>
 #include <kscreensaver.h>
 #include "spriteanim.h"
 
