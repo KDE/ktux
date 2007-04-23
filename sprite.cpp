@@ -26,9 +26,9 @@
 #include <klocale.h>
 #include <kdebug.h>
 #include <KStandardGuiItem>
-#include <kbuttonbox.h>
 #include <kguiitem.h>
 #include <krandom.h>
+#include <k3buttonbox.h>
 
 // libkscreensaver interface
 class KSpriteSaverInterface : public KScreenSaverInterface
@@ -105,7 +105,7 @@ KSpriteSetup::KSpriteSetup( QWidget *parent, const char *name )
     saver = new KSpriteSaver( preview->winId() );
     tl1->addWidget(preview);
 
-    KButtonBox *bbox = new KButtonBox(this);
+    K3ButtonBox *bbox = new K3ButtonBox(this);
     QPushButton *button = bbox->addButton( i18n("About"));
     connect( button, SIGNAL( clicked() ), SLOT(slotAbout() ) );
     bbox->addStretch(1);
