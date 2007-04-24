@@ -21,14 +21,14 @@
 #include <QVBoxLayout>
 #include <QFrame>
 #include <QHBoxLayout>
-#include <QPushButton>
+#include <KPushButton>
 #include <kstandarddirs.h>
 #include <klocale.h>
 #include <kdebug.h>
 #include <KStandardGuiItem>
 #include <kguiitem.h>
 #include <krandom.h>
-#include <k3buttonbox.h>
+#include <KDialogButtonBox>
 
 // libkscreensaver interface
 class KSpriteSaverInterface : public KScreenSaverInterface
@@ -105,16 +105,15 @@ KSpriteSetup::KSpriteSetup( QWidget *parent, const char *name )
     saver = new KSpriteSaver( preview->winId() );
     tl1->addWidget(preview);
 
-    K3ButtonBox *bbox = new K3ButtonBox(this);
-    QPushButton *button = bbox->addButton( i18n("About"));
+    KDialogButtonBox *bbox = new KDialogButtonBox(this);
+    QPushButton *button = bbox->addButton( i18n("About"), QDialogButtonBox::ActionRole);
     connect( button, SIGNAL( clicked() ), SLOT(slotAbout() ) );
-    bbox->addStretch(1);
 
-    button = bbox->addButton( KStandardGuiItem::ok());
+    button = bbox->addButton( KStandardGuiItem::ok(),QDialogButtonBox::ActionRole);
     connect( button, SIGNAL( clicked() ), SLOT( slotOkPressed() ) );
 
-    button = bbox->addButton(KStandardGuiItem::cancel());
-    connect( button, SIGNAL( clicked() ), SLOT( reject() ) );
+    button = bbox->addButton(KStandardGuiItem::cancel(),QDialogButtonBox::RejectRole);
+    connect(bbox, SIGNAL(rejected()), this, SLOT(reject()));
     bbox->layout();
     tl->addWidget(bbox);
 
