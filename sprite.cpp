@@ -165,7 +165,7 @@ void KSpriteSetup::slotAbout()
 
 KSpriteSaver::KSpriteSaver( WId id ) : KScreenSaver( id )
 {
-    KGlobal::dirs()->addResourceType("sprite", KStandardDirs::kde_default("data") + "ktux/sprites/");
+    KGlobal::dirs()->addResourceType("sprite", "data", "ktux/sprites/");
 
     initialise();
     readSettings();
