@@ -37,7 +37,7 @@ class KSpriteSaverInterface : public KScreenSaverInterface
 
 public:
     virtual KAboutData* aboutData() {
-        return new KAboutData( "ktux", I18N_NOOP( "Tux Screen Saver" ), "1.0.0", I18N_NOOP( "Tux Screen Saver" ) );
+        return new KAboutData( "ktux", 0, ki18n( "Tux Screen Saver" ), "1.0.0", ki18n( "Tux Screen Saver" ) );
     }
 
 
