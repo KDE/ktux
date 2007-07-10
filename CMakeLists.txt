@@ -9,7 +9,6 @@ set(ktux_SRCS
    spritepm.cpp 
    sprite.cpp )
 
-kde4_automoc(${ktux_SRCS})
 
 kde4_add_executable(ktux ${ktux_SRCS})
 
