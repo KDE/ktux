@@ -1,4 +1,7 @@
 project(ktux)
+
+MESSAGE(STATUS "STRIGI_LIBRARIES :<${STRIGI_LIBRARIES}>")
+
 add_subdirectory( sprites ) 
 add_definitions (-DQT3_SUPPORT)
 ########### next target ###############
@@ -12,7 +15,9 @@ set(ktux_SRCS
 
 kde4_add_executable(ktux ${ktux_SRCS})
 
-target_link_libraries(ktux  ${KDE4_KDEUI_LIBS}  ${QT_QT3SUPPORT_LIBRARY} kscreensaver )
+find_package(Strigi)
+
+target_link_libraries(ktux ${KDE4_KDEUI_LIBS} ${STRIGI_LIBRARIES} ${QT_QT3SUPPORT_LIBRARY} kscreensaver )
 
 install(TARGETS ktux  DESTINATION ${BIN_INSTALL_DIR} )
 
