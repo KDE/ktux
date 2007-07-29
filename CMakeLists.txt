@@ -1,7 +1,5 @@
 project(ktux)
 
-MESSAGE(STATUS "STRIGI_LIBRARIES :<${STRIGI_LIBRARIES}>")
-
 add_subdirectory( sprites ) 
 add_definitions (-DQT3_SUPPORT)
 ########### next target ###############
