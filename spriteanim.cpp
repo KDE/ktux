@@ -94,7 +94,7 @@ void SpriteDef::read(KConfigBase &config)
     mZ = config.readEntry("Z", 1);
     QString animation = config.readEntry("Animation", "");
     mSeq = SpriteSequenceManager::manager()->load(config, animation);
-    kDebug() << "Set Z = " << mZ << endl;
+    kDebug() << "Set Z = " << mZ;
 }
 
 //===========================================================================

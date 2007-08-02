@@ -216,7 +216,7 @@ void KSpriteSaver::readSettings()
     mTimerIds.resize(list.count());
     for (int i = 0; i < list.count(); i++)
     {
-	kDebug() << "Group: " << list.at(i) << endl;;
+	kDebug() << "Group: " << list.at(i);;
 	mConfig.changeGroup(list.at(i));
 	SpriteGroup *obj = new SpriteGroup(mCanvas, *pConfig);
 	mTimerIds[i] = startTimer(obj->refreshTime());

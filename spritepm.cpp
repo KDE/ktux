@@ -48,7 +48,7 @@ const QPixmap *SpritePixmapManager::load(const QString & img)
     if (!pixmap)
     {
         // pixmap has not yet been loaded.
-        kDebug() << "Reading pixmap: " << img << endl;
+        kDebug() << "Reading pixmap: " << img;
         QString path = mPixmapDir + QString("/") + img;
         pixmap = new QPixmap(path);
 
@@ -60,7 +60,7 @@ const QPixmap *SpritePixmapManager::load(const QString & img)
         {
             delete pixmap;
             pixmap = 0;
-            kDebug() << "read failed" << endl;;
+            kDebug() << "read failed";;
         }
     }
 
@@ -123,7 +123,7 @@ SpritePixmapSequence *SpriteSequenceManager::load(KConfigBase &config,
 
     if (!sprite)
     {
-        kDebug() << "Reading sprite: " << name << endl;
+        kDebug() << "Reading sprite: " << name;
         config.setGroup(name);
         sprite = read(config);
         if (sprite)
