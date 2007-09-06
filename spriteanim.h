@@ -11,11 +11,12 @@
 #include "spritemisc.h"
 #include "spritepm.h"
 
-#include <qpixmap.h>
-#include <q3dict.h>
-#include <q3ptrlist.h>
-#include <q3strlist.h>
-#include <q3canvas.h>
+#include <QtGui/QPixmap>
+#include <Qt3Support/Q3Dict>
+#include <Qt3Support/Q3PtrList>
+#include <Qt3Support/Q3StrList>
+#include <Qt3Support/Q3Canvas>
+
 #include <kconfigbase.h>
 #include <kconfig.h>
 

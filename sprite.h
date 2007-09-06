@@ -8,16 +8,17 @@
 #ifndef __SPRITE_H__
 #define __SPRITE_H__
 
-#include <qtimer.h>
-#include <qpushbutton.h>
-#include <q3ptrlist.h>
-#include <q3strlist.h>
-#include <q3canvas.h>
-//Added by qt3to4:
-#include <QTimerEvent>
-#include <QVector>
-#include <QDialog>
+#include <QtCore/QTimer>
+#include <QtGui/QPushButton>
+#include <Qt3Support/Q3PtrList>
+#include <Qt3Support/Q3StrList>
+#include <Qt3Support/Q3Canvas>
+#include <QtCore/QTimerEvent>
+#include <QtCore/QVector>
+#include <QtGui/QDialog>
+
 #include <kscreensaver.h>
+
 #include "spriteanim.h"
 
 //-----------------------------------------------------------------------------

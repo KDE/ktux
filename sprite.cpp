@@ -12,15 +12,17 @@
 
 #include <stdlib.h>
 #include <time.h>
-#include <qlabel.h>
-#include <qmessagebox.h>
-#include <qlayout.h>
-#include <qslider.h>
-#include <QPixmap>
-#include <QTimerEvent>
-#include <QVBoxLayout>
-#include <QFrame>
-#include <QHBoxLayout>
+
+#include <QtGui/QLabel>
+#include <QtGui/QMessageBox>
+#include <QtGui/QLayout>
+#include <QtGui/QSlider>
+#include <QtGui/QPixmap>
+#include <QtCore/QTimerEvent>
+#include <QtGui/QVBoxLayout>
+#include <QtGui/QFrame>
+#include <QtGui/QHBoxLayout>
+
 #include <KPushButton>
 #include <kstandarddirs.h>
 #include <klocale.h>

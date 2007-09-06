@@ -8,12 +8,12 @@
 #ifndef SPRITEPM_H
 #define SPRITEPM_H
 
-#include <q3dict.h>
-#include <qpixmap.h>
-#include <q3canvas.h>
-//Added by qt3to4:
-#include <Q3PtrList>
-#include <QVector>
+#include <Qt3Support/Q3Dict>
+#include <QtGui/QPixmap>
+#include <Qt3Support/Q3Canvas>
+#include <Qt3Support/Q3PtrList>
+#include <QtCore/QVector>
+
 #include <kconfigbase.h>
 #include <kconfig.h>
 

@@ -8,8 +8,8 @@
 #ifndef __SPRITEMISC_H__
 #define __SPRITEMISC_H__
 
-#include <qstring.h>
-#include <qsize.h>
+#include <QtCore/QString>
+#include <QtCore/QSize>
 
 class SpriteRange
 {

@@ -9,9 +9,10 @@
 
 #include <stdlib.h>
 #include <kdebug.h>
-#include <QPixmap>
-#include <Q3PtrList>
-#include <QVector>
+
+#include <QtGui/QPixmap>
+#include <Qt3Support/Q3PtrList>
+#include <QtCore/QVector>
 
 // static
 SpritePixmapManager *SpritePixmapManager::mManager = 0;
