@@ -75,6 +75,7 @@ Name[uz]=Ўрнатиш
 Name[wa]=Apontyî...
 Name[x-test]=xxSetup...xx
 Name[xh]=Iyacwangciswa...
+Name[zh_CN]=设置...
 Name[zh_TW]=設定...
 Icon=kscreensaver
 
@@ -128,6 +129,7 @@ Name[tr]=Belirtilen Pencerede Göster
 Name[uk]=Відобразити у вказаному вікні
 Name[wa]=Håyner dins l' purnea specifyî
 Name[x-test]=xxDisplay in Specified Windowxx
+Name[zh_CN]=在指定的窗口中显示
 Name[zh_TW]=在指定的視窗中顯示
 NoDisplay=true
 
@@ -181,6 +183,7 @@ Name[tr]=Kök Pencerede Göster
 Name[uk]=Відобразити на тлі екрана
 Name[wa]=Håyner e purnea raecene (li fond do scribanne)
 Name[x-test]=xxDisplay in Root Windowxx
+Name[zh_CN]=在根窗口中显示
 Name[zh_TW]=在根視窗中顯示
 NoDisplay=true
 X-DBUS-StartupType=Multi
