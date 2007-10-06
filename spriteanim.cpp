@@ -10,6 +10,7 @@
 #include "spritepm.h"
 
 #include <kdebug.h>
+#include <kconfiggroup.h>
 //===========================================================================
 //
 // SpriteObject stores the animations that create an object
@@ -84,15 +85,15 @@ SpriteObject *SpriteDef::create( Q3Canvas *c )
 //---------------------------------------------------------------------------
 void SpriteDef::read(KConfigBase &config)
 {
-    mDirX.set(config.readEntry("DirectionX", "0"));
-    mDirY.set(config.readEntry("DirectionY", "0"));
-    mStartX.set(config.readEntry("StartX", "0"));
-    mStartY.set(config.readEntry("StartY", "0"));
-    mEndX.set(config.readEntry("EndX", "10000"));
-    mEndY.set(config.readEntry("EndY", "10000"));
-    mLifeSpan = config.readEntry("LifeSpan", -1);
-    mZ = config.readEntry("Z", 1);
-    QString animation = config.readEntry("Animation", "");
+    mDirX.set(config.group("<default>").readEntry("DirectionX", "0"));
+    mDirY.set(config.group("<default>").readEntry("DirectionY", "0"));
+    mStartX.set(config.group("<default>").readEntry("StartX", "0"));
+    mStartY.set(config.group("<default>").readEntry("StartY", "0"));
+    mEndX.set(config.group("<default>").readEntry("EndX", "10000"));
+    mEndY.set(config.group("<default>").readEntry("EndY", "10000"));
+    mLifeSpan = config.group("<default>").readEntry("LifeSpan", -1);
+    mZ = config.group("<default>").readEntry("Z", 1);
+    QString animation = config.group("<default>").readEntry("Animation", "");
     mSeq = SpriteSequenceManager::manager()->load(config, animation);
     kDebug() << "Set Z = " << mZ;
 }
@@ -143,19 +144,19 @@ void SpriteGroup::refresh()
 //---------------------------------------------------------------------------
 void SpriteGroup::read(KConfigBase &config)
 {
-    SpriteRange countRange(config.readEntry("Count", "1"));
+    SpriteRange countRange(config.group("<default>").readEntry("Count", "1"));
     mCount = countRange.random();
 
-    mRefresh.set(config.readEntry("Refresh", "1000"));
+    mRefresh.set(config.group("<default>").readEntry("Refresh", "1000"));
 
     QStringList anims;
-    anims = config.readEntry("Animations",anims);
+    anims = config.group("<default>").readEntry("Animations",anims);
 
     QStringList::const_iterator lst;
 	
 	for (lst = anims.constBegin(); lst != anims.constEnd(); ++lst)
     {
-        config.setGroup((*lst));
+	KConfigGroup grp(&config, *lst);
         SpriteDef *obj = new SpriteDef(config);
         mAvailable.append(obj);
     }

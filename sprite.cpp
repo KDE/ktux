@@ -23,6 +23,7 @@
 #include <QtGui/QFrame>
 #include <QtGui/QHBoxLayout>
 
+#include <kconfiggroup.h>
 #include <KPushButton>
 #include <kstandarddirs.h>
 #include <klocale.h>

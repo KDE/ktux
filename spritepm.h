@@ -56,6 +56,8 @@ protected:
     QVector<int> mDelays;
 };
 
+class KConfigGroup;
+
 //---------------------------------------------------------------------------
 //
 // SpriteManager stores the animation sequences
@@ -73,7 +75,7 @@ public:
     static SpriteSequenceManager *manager();
      
 protected:
-    SpritePixmapSequence *read(KConfigBase &config);
+    SpritePixmapSequence *read(const KConfigGroup &config);
 
 protected:
     Q3Dict<SpritePixmapSequence> mSprites;

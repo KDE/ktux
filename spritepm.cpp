@@ -9,6 +9,7 @@
 
 #include <stdlib.h>
 #include <kdebug.h>
+#include <kconfiggroup.h>
 
 #include <QtGui/QPixmap>
 #include <Qt3Support/Q3PtrList>
@@ -125,8 +126,8 @@ SpritePixmapSequence *SpriteSequenceManager::load(KConfigBase &config,
     if (!sprite)
     {
         kDebug() << "Reading sprite: " << name;
-        config.setGroup(name);
-        sprite = read(config);
+	KConfigGroup grp(&config, name);
+        sprite = read(grp);
         if (sprite)
         {
             mSprites.insert(name, sprite);
@@ -138,7 +139,7 @@ SpritePixmapSequence *SpriteSequenceManager::load(KConfigBase &config,
 
 //---------------------------------------------------------------------------
 //
-SpritePixmapSequence *SpriteSequenceManager::read(KConfigBase &config)
+SpritePixmapSequence *SpriteSequenceManager::read(const KConfigGroup &config)
 {
     QStringList strImages;
     QStringList strDelays;
