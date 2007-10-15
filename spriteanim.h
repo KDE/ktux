@@ -49,12 +49,12 @@ protected:
 class SpriteDef
 {
 public:
-    explicit SpriteDef(KConfigBase &config);
+    explicit SpriteDef(KConfigGroup &config);
 
     SpriteObject *create( Q3Canvas *c );
 
 protected:
-    void read(KConfigBase &config);
+    void read(KConfigGroup &config);
 
 protected:
     SpriteRange             mDirX;
@@ -75,14 +75,14 @@ protected:
 class SpriteGroup
 {
 public:
-    SpriteGroup(Q3Canvas *c, KConfigBase &config);
+    SpriteGroup(Q3Canvas *c, KConfigGroup &config);
 
     void next();
     void refresh();
     int refreshTime() const { return mRefresh.random(); }
 
 protected:
-    void read(KConfigBase &config);
+    void read(KConfigGroup &config);
 
 protected:
     Q3PtrList<SpriteDef>        mAvailable;
