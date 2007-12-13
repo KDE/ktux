@@ -13,7 +13,7 @@ set(ktux_SRCS
 
 kde4_add_executable(ktux ${ktux_SRCS})
 
-find_package(Strigi)
+find_package(Strigi REQUIRED)
 
 target_link_libraries(ktux ${KDE4_KDEUI_LIBS} ${STRIGI_LIBRARIES} ${QT_QT3SUPPORT_LIBRARY} kscreensaver )
 
