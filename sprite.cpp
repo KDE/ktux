@@ -119,8 +119,6 @@ KSpriteSetup::KSpriteSetup( QWidget *parent, const char *name )
     connect(bbox, SIGNAL(rejected()), this, SLOT(reject()));
     bbox->layout();
     tl->addWidget(bbox);
-
-    tl->freeze();
 }
 
 KSpriteSetup::~KSpriteSetup()
