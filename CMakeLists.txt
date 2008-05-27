@@ -17,7 +17,7 @@ find_package(Strigi REQUIRED)
 
 target_link_libraries(ktux ${KDE4_KDEUI_LIBS} ${STRIGI_LIBRARIES} ${QT_QT3SUPPORT_LIBRARY} kscreensaver )
 
-install(TARGETS ktux  DESTINATION ${BIN_INSTALL_DIR} )
+install(TARGETS ktux  ${INSTALL_TARGETS_DEFAULT_ARGS} )
 
 
 ########### install files ###############
