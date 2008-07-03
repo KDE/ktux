@@ -14,7 +14,6 @@
 #include <time.h>
 
 #include <QtGui/QLabel>
-#include <QtGui/QMessageBox>
 #include <QtGui/QLayout>
 #include <QtGui/QSlider>
 #include <QtGui/QPixmap>
@@ -25,6 +24,7 @@
 
 #include <kconfiggroup.h>
 #include <KPushButton>
+#include <KMessageBox>
 #include <kstandarddirs.h>
 #include <klocale.h>
 #include <kdebug.h>
@@ -156,9 +156,9 @@ void KSpriteSetup::slotOkPressed()
 
 void KSpriteSetup::slotAbout()
 {
-  QMessageBox::information(this, i18n("About KTux"),
+  KMessageBox::information(this,
     i18n("KTux Version 1.0\n\nWritten by Martin R. Jones 1999\nmjones@kde.org"),
-    i18n("OK"));
+    i18n("About KTux"));
 }
 
 

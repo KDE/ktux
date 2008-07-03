@@ -15,7 +15,7 @@ class SpriteRange
 {
 public:
     explicit SpriteRange(const QString &str);
-    SpriteRange(int l=0, int h=0) : mMin(l), mMax(h) {}
+    explicit SpriteRange(int l=0, int h=0) : mMin(l), mMax(h) {}
 
     int min() const { return mMin; }
     int max() const { return mMax; }
