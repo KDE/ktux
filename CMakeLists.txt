@@ -6,15 +6,10 @@ if(Q_WS_X11)
 
    # kscreensaver is installed by kdebase/workspace, so we depend on this here
    # and we have to check for it. Alex
-   find_path( KSCREENSAVER_INCLUDE_DIR kscreensaver.h
-            PATHS ${KDE4_INCLUDE_DIR}
-   )
-   find_library( KSCREENSAVER_LIBRARY kscreensaver
-            PATHS ${KDE4_LIB_DIR}
-   )
+   find_package(KDE4Workspace)
 
-   if(KSCREENSAVER_INCLUDE_DIR  AND  KSCREENSAVER_LIBRARY)
-      include_directories(${KSCREENSAVER_INCLUDE_DIR})
+   if(KDE4WORKSPACE_FOUND)
+      include_directories(${KDE4WORKSPACE_INCLUDE_DIR})
 
       add_subdirectory( sprites ) 
 
@@ -27,7 +22,7 @@ if(Q_WS_X11)
 
       kde4_add_executable(ktux ${ktux_SRCS})
 
-      target_link_libraries(ktux ${KDE4_KDEUI_LIBS} ${STRIGI_LIBRARIES} ${QT_QT3SUPPORT_LIBRARY} ${KSCREENSAVER_LIBRARY})
+      target_link_libraries(ktux ${KDE4_KDEUI_LIBS} ${STRIGI_LIBRARIES} ${QT_QT3SUPPORT_LIBRARY} ${KDE4WORKSPACE_KSCREENSAVER_LIBRARY})
 
       install(TARGETS ktux  ${INSTALL_TARGETS_DEFAULT_ARGS} )
 
@@ -38,8 +33,8 @@ if(Q_WS_X11)
 
       kde4_install_icons(${ICON_INSTALL_DIR}  )
 
-   else(KSCREENSAVER_INCLUDE_DIR  AND  KSCREENSAVER_LIBRARY)
-      message(STATUS "Ktux can't be compiled. Install kdebase before")
-   endif(KSCREENSAVER_INCLUDE_DIR  AND  KSCREENSAVER_LIBRARY)
+   else(KDE4WORKSPACE_FOUND)
+      message(STATUS "Ktux can't be compiled. Install kdebase/workspace before")
+   endif(KDE4WORKSPACE_FOUND)
 
 endif(Q_WS_X11)
