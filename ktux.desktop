@@ -1,6 +1,5 @@
 [Desktop Entry]
 Name=KTux
-Name[af]=Ktux
 Name[bg]=Тюкс
 Name[bn]=কে-টাক্স
 Name[hne]=के-टक्स
@@ -88,6 +87,7 @@ Icon=kscreensaver
 [Desktop Action InWindow]
 Exec=ktux -window-id %w
 Name=Display in Specified Window
+Name[af]=Vertoon in gespesifiseerde venster
 Name[be]=Паказваць у зададзеным вакне
 Name[bg]=Стартиране в избран прозорец
 Name[bn]=উল্লেখকৃত উইন্ডোতে দেখাও
@@ -149,6 +149,7 @@ NoDisplay=true
 [Desktop Action Root]
 Exec=ktux -root
 Name=Display in Root Window
+Name[af]=Vertoon in basis venster
 Name[be]=Паказваць у фанавым вакне
 Name[bg]=Стартиране в главния прозорец
 Name[bn]=রুট উইন্ডোতে দেখাও
