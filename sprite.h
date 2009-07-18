@@ -10,13 +10,10 @@
 
 #include <QtCore/QTimer>
 #include <QtGui/QPushButton>
-#include <Qt3Support/Q3PtrList>
-#include <Qt3Support/Q3StrList>
 #include <Qt3Support/Q3Canvas>
 #include <QtCore/QTimerEvent>
 #include <QtCore/QVector>
-#include <QtGui/QDialog>
-
+#include <KDialog>
 #include <kscreensaver.h>
 
 #include "spriteanim.h"
@@ -51,7 +48,7 @@ protected:
     QVector<int>    mTimerIds;
 };
 
-class KSpriteSetup : public QDialog
+class KSpriteSetup : public KDialog
 {
     Q_OBJECT
 public:

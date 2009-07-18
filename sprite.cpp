@@ -64,18 +64,24 @@ int main( int argc, char *argv[] )
 //-----------------------------------------------------------------------------
 
 KSpriteSetup::KSpriteSetup( QWidget *parent, const char *name )
-  : QDialog( parent )
+  : KDialog( parent )
 {
     setObjectName(name);
-    setModal(true);
     KGlobal::locale()->insertCatalog("ktux");
     saver = 0;
 
-    readSettings();
+    setButtons(Ok|Cancel|Help);
+    setDefaultButton(Ok);
+    setButtonText( Help, i18n( "A&bout" ) );
+    setModal(true);
+    showButtonSeparator(true);
+    QWidget *main = new QWidget(this);
+    setMainWidget(main);
 
+    readSettings();
     setWindowTitle(i18n("Setup KTux") );
 
-    QVBoxLayout *tl = new QVBoxLayout(this);
+    QVBoxLayout *tl = new QVBoxLayout(main);
     tl->setSpacing(10);
     tl->setMargin(10);
     QHBoxLayout *tl1 = new QHBoxLayout;
@@ -84,12 +90,12 @@ KSpriteSetup::KSpriteSetup( QWidget *parent, const char *name )
     tl11->setSpacing( 5 );
     tl1->addLayout(tl11);
 
-    QLabel *label = new QLabel( i18n("Speed:"), this );
+    QLabel *label = new QLabel( i18n("Speed:"), main );
     label->setMinimumSize(label->sizeHint());
     tl11->addStretch(1);
     tl11->addWidget(label);
 
-    QSlider *sb = new QSlider( Qt::Horizontal,this);
+    QSlider *sb = new QSlider( Qt::Horizontal,main);
     sb->setMinimum(0);
     sb->setMaximum(100);
     sb->setPageStep(10);
@@ -97,28 +103,21 @@ KSpriteSetup::KSpriteSetup( QWidget *parent, const char *name )
     tl11->addWidget(sb);
     connect( sb, SIGNAL( valueChanged( int ) ), SLOT( slotSpeed( int ) ) );
 
-    preview = new QWidget( this );
+    preview = new QWidget( main );
     preview->setFixedSize( 220, 170 );
 
     QPalette palette;
     palette.setColor(preview->backgroundRole(), Qt::black);
     preview->setPalette(palette);
-
+    preview->setAutoFillBackground(true);
     preview->show();    // otherwise saver does not get correct size
     saver = new KSpriteSaver( preview->winId() );
     tl1->addWidget(preview);
 
-    KDialogButtonBox *bbox = new KDialogButtonBox(this);
-    QPushButton *button = bbox->addButton( i18n("About"), QDialogButtonBox::ActionRole);
-    connect( button, SIGNAL( clicked() ), SLOT(slotAbout() ) );
+    connect( this, SIGNAL( helpClicked() ), SLOT(slotAbout() ) );
 
-    button = bbox->addButton( KStandardGuiItem::ok(),QDialogButtonBox::ActionRole);
-    connect( button, SIGNAL( clicked() ), SLOT( slotOkPressed() ) );
+    connect( this, SIGNAL( okClicked() ), SLOT( slotOkPressed() ) );
 
-    button = bbox->addButton(KStandardGuiItem::cancel(),QDialogButtonBox::RejectRole);
-    connect(bbox, SIGNAL(rejected()), this, SLOT(reject()));
-    bbox->layout();
-    tl->addWidget(bbox);
 }
 
 KSpriteSetup::~KSpriteSetup()
