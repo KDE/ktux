@@ -49,7 +49,7 @@ public:
         return new KSpriteSaver( id );
     }
 
-    virtual QDialog* setup()
+    virtual KDialog* setup()
     {
         return new KSpriteSetup();
     }
