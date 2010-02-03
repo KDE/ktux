@@ -1,14 +1,23 @@
-//-----------------------------------------------------------------------------
-//
-// KTux - QCanvas based screensaver
-//
-// Copyright Martin R. Jones 1999 <mjones@kde.org>
-//
-
+/*
+ *   Copyright 1999 by Martin R. Jones <mjones@kde.org>
+ *
+ *   This program is free software; you can redistribute it and/or modify
+ *   it under the terms of the GNU General Public License as published by
+ *   the Free Software Foundation; either version 2 of the License, or
+ *   (at your option) any later version.
+ *
+ *   This program is distributed in the hope that it will be useful,
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *   GNU General Public License for more details.
+ *
+ *   You should have received a copy of the GNU General Public License
+ *   along with this program; if not, write to the Free Software
+ *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+ */
 #include "sprite.h"
 #include "spritepm.h"
 #include "spritemisc.h"
-#include "sprite.moc"
 
 #include <stdlib.h>
 #include <time.h>
@@ -33,14 +42,13 @@
 #include <krandom.h>
 #include <KDialogButtonBox>
 
-// libkscreensaver interface
-class KSpriteSaverInterface : public KScreenSaverInterface
+
+
+struct KSpriteSaverInterface : public KScreenSaverInterface
 {
-
-
-public:
-    virtual KAboutData* aboutData() {
-        return new KAboutData( "ktux", 0, ki18n( "Tux Screen Saver" ), "1.0.0", ki18n( "Tux Screen Saver" ) );
+    virtual KAboutData* aboutData()
+    {
+        return new KAboutData( "ktux", 0, ki18n( "Tux Screen Saver" ), "1.0.1", ki18n( "Tux Screen Saver" ) );
     }
 
 
@@ -49,21 +57,22 @@ public:
         return new KSpriteSaver( id );
     }
 
+
     virtual KDialog* setup()
     {
         return new KSpriteSetup();
     }
 };
 
-int main( int argc, char *argv[] )
+
+int main(int argc, char *argv[])
 {
     KSpriteSaverInterface kss;
     return kScreenSaverMain( argc, argv, kss );
 }
 
-//-----------------------------------------------------------------------------
 
-KSpriteSetup::KSpriteSetup( QWidget *parent, const char *name )
+KSpriteSetup::KSpriteSetup(QWidget *parent, const char *name)
   : KDialog( parent )
 {
     setObjectName(name);
@@ -115,7 +124,6 @@ KSpriteSetup::KSpriteSetup( QWidget *parent, const char *name )
     tl1->addWidget(preview);
 
     connect( this, SIGNAL( helpClicked() ), SLOT(slotAbout() ) );
-
     connect( this, SIGNAL( okClicked() ), SLOT( slotOkPressed() ) );
 
 }
@@ -125,26 +133,30 @@ KSpriteSetup::~KSpriteSetup()
     delete saver;
 }
 
-// read settings from config file
+
 void KSpriteSetup::readSettings()
 {
     KConfigGroup config(KGlobal::config(), "Settings");
 
     speed = config.readEntry( "Speed", 50 );
-    if (speed > 100)
-	speed = 100;
-    else if (speed < 0)
-	speed = 0;
+    if( speed > 100 ) {
+        speed = 100;
+    }
+    else if( speed < 0 ) {
+        speed = 0;
+    }
 }
+
 
 void KSpriteSetup::slotSpeed(int s)
 {
     speed = s;
-    if (saver)
-	saver->setSpeed(speed);
+    if( saver ) {
+        saver->setSpeed(speed);
+    }
 }
 
-// Ok pressed - save settings and exit
+
 void KSpriteSetup::slotOkPressed()
 {
     KConfigGroup config(KGlobal::config(), "Settings");
@@ -153,15 +165,15 @@ void KSpriteSetup::slotOkPressed()
     accept();
 }
 
+
 void KSpriteSetup::slotAbout()
 {
-  KMessageBox::information(this,
-    i18n("KTux Version 1.0\n\nWritten by Martin R. Jones 1999\nmjones@kde.org"),
-    i18n("About KTux"));
+    KMessageBox::information( this,
+        i18n("KTux Version 1.0\n\nWritten by Martin R. Jones 1999\nmjones@kde.org"),
+        i18n("About KTux")
+    );
 }
 
-
-//-----------------------------------------------------------------------------
 
 KSpriteSaver::KSpriteSaver( WId id ) : KScreenSaver( id )
 {
@@ -176,7 +188,7 @@ KSpriteSaver::KSpriteSaver( WId id ) : KScreenSaver( id )
     mTimer.start(120-mSpeed);
 }
 
-//-----------------------------------------------------------------------------
+
 KSpriteSaver::~KSpriteSaver()
 {
     mTimer.stop();
@@ -184,17 +196,14 @@ KSpriteSaver::~KSpriteSaver()
     delete mCanvas;
 }
 
-//-----------------------------------------------------------------------------
-//
+
 void KSpriteSaver::setSpeed(int speed)
 {
     mSpeed = speed;
     mTimer.start(120-mSpeed);
 }
 
-//-----------------------------------------------------------------------------
-// read settings from config file
-//
+
 void KSpriteSaver::readSettings()
 {
     QString str;
@@ -216,16 +225,16 @@ void KSpriteSaver::readSettings()
     mTimerIds.resize(list.count());
     for (int i = 0; i < list.count(); i++)
     {
-	kDebug() << "Group: " << list.at(i);
+    kDebug() << "Group: " << list.at(i);
         KConfigGroup grp = pConfig->group(list.at(i));
-	SpriteGroup *obj = new SpriteGroup(mCanvas, grp);
-	mTimerIds[i] = startTimer(obj->refreshTime());
-	mGroups.append(obj);
+    SpriteGroup *obj = new SpriteGroup(mCanvas, grp);
+    mTimerIds[i] = startTimer(obj->refreshTime());
+    mGroups.append(obj);
     }
     delete pConfig;
 }
 
-//-----------------------------------------------------------------------------
+
 void KSpriteSaver::initialise()
 {
     mCanvas = new Q3Canvas();
@@ -247,37 +256,37 @@ void KSpriteSaver::initialise()
     SpriteRange::setFieldSize(mView->size());
 }
 
-//-----------------------------------------------------------------------------
+
 void KSpriteSaver::slotTimeout()
 {
     mTimer.setSingleShot(true);
     mTimer.start(120-mSpeed);
     SpriteGroup *grp;
 
-	Q_FOREACH( grp, mGroups )
+    Q_FOREACH( grp, mGroups )
     {
-	grp->next();
+        grp->next();
     }
 
     mCanvas->advance();
 }
 
-//-----------------------------------------------------------------------------
+
 void KSpriteSaver::timerEvent(QTimerEvent *ev)
 {
     for (int i = 0; i < mTimerIds.size(); i++)
     {
-	if (mTimerIds[i] == ev->timerId())
-	{
-	    mGroups.at(i)->refresh();
-	    killTimer(ev->timerId());
-	    mTimerIds[i] = startTimer(mGroups.at(i)->refreshTime());
-	    break;
-	}
+        if (mTimerIds[i] == ev->timerId())
+        {
+            mGroups.at(i)->refresh();
+            killTimer(ev->timerId());
+            mTimerIds[i] = startTimer(mGroups.at(i)->refreshTime());
+            break;
+        }
     }
 }
 
-//-----------------------------------------------------------------------------
+
 void KSpriteSaver::blank()
 {
     QPalette palette;
@@ -287,3 +296,6 @@ void KSpriteSaver::blank()
     update();
 }
 
+
+// kate: word-wrap off; encoding utf-8; indent-width 4; tab-width 4; line-numbers on; mixed-indent off; remove-trailing-space-save on; replace-tabs-save on; replace-tabs on; space-indent on;
+// vim:set spell et sw=4 ts=4 nowrap cino=l1,cs,U1:
