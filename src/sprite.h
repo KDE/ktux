@@ -51,7 +51,8 @@ class KSpriteSaver : public KScreenSaver
         void slotTimeout();
 
     protected:
-        virtual void timerEvent(QTimerEvent *event);
+        void timerEvent(QTimerEvent *event);
+        void resizeEvent(QResizeEvent *event);
 
     protected:
         Q3Canvas *mCanvas;

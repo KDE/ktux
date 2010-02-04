@@ -287,6 +287,12 @@ void KSpriteSaver::timerEvent(QTimerEvent *ev)
 }
 
 
+void KSpriteSaver::resizeEvent(QResizeEvent *event)
+{
+    mCanvas->resize( width(), height() );
+}
+
+
 void KSpriteSaver::blank()
 {
     QPalette palette;
