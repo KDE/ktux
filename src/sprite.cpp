@@ -41,6 +41,9 @@
 #include <kguiitem.h>
 #include <krandom.h>
 #include <KDialogButtonBox>
+#include <kaboutapplicationdialog.h>
+#include <kcomponentdata.h>
+#include <QPointer>
 
 
 
@@ -48,7 +51,15 @@ struct KSpriteSaverInterface : public KScreenSaverInterface
 {
     virtual KAboutData* aboutData()
     {
-        return new KAboutData( "ktux", 0, ki18n( "Tux Screen Saver" ), "1.0.1", ki18n( "Tux Screen Saver" ) );
+        KAboutData *about = new KAboutData( "ktux", 0, ki18n( "KTux" ), "1.0.1" );
+        about->setShortDescription( ki18n( "Tux Screen Saver" ) );
+        about->setLicense( KAboutData::License_GPL );
+        about->setCopyrightStatement( ki18n("1999 by Martin R. Jones\n2010 by Stefan Böhmann") );
+
+        about->addAuthor( ki18n( "Martin R. Jones" ), KLocalizedString(), "mjones@kde.org");
+        about->addAuthor( ki18n( "Stefan Böhmann" ), KLocalizedString(), "kde@hilefoks.org");
+
+        return about;
     }
 
 
@@ -168,10 +179,10 @@ void KSpriteSetup::slotOkPressed()
 
 void KSpriteSetup::slotAbout()
 {
-    KMessageBox::information( this,
-        i18n("KTux Version 1.0\n\nWritten by Martin R. Jones 1999\nmjones@kde.org"),
-        i18n("About KTux")
-    );
+    QPointer<KAboutApplicationDialog> dialog = new KAboutApplicationDialog( KGlobal::mainComponent().aboutData(), this );
+
+    dialog->exec();
+    delete dialog;
 }
 
 
