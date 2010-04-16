@@ -300,6 +300,7 @@ void KSpriteSaver::timerEvent(QTimerEvent *ev)
 
 void KSpriteSaver::resizeEvent(QResizeEvent *event)
 {
+    Q_UNUSED( event );
     mCanvas->resize( width(), height() );
 }
 
