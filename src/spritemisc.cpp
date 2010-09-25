@@ -50,7 +50,7 @@ int SpriteRange::random() const
 
 void SpriteRange::set(const QString &str)
 {
-    int r = str.indexOf("..");
+    int r = str.indexOf(QLatin1String(".."));
 
     if( r > 0 ) {
         mMin = parse(str.left(r));
@@ -72,10 +72,10 @@ int SpriteRange::parse(const QString &str)
 {
     int val = 0;
 
-    if( str == "WIDTH" ) {
+    if( str == QLatin1String("WIDTH") ) {
         val = mFieldSize.width();
     }
-    else if( str == "HEIGHT" ) {
+    else if( str == QLatin1String("HEIGHT") ) {
         val = mFieldSize.height();
     }
     else {

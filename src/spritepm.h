@@ -37,10 +37,10 @@ class SpritePixmapManager
         void setPixmapDir(const QString &dir)
             { mPixmapDir = dir; }
         void reset()
-            { mPixmapDir = "."; mPixmaps.clear(); }
+            { mPixmapDir = QLatin1String("."); mPixmaps.clear(); }
         const QPixmap *load(const QString & img);
         const QPixmap *pixmap(const char *img) const
-            { return mPixmaps.find(img); }
+            { return mPixmaps.find(QLatin1String(img)); }
 
         static SpritePixmapManager *manager();
 
@@ -73,7 +73,7 @@ class SpriteSequenceManager
 
         SpritePixmapSequence *load(KConfigBase &config, const QString & name);
         SpritePixmapSequence *sprite(const char *name)
-            { return mSprites.find(name); }
+            { return mSprites.find(QLatin1String(name)); }
 
         static SpriteSequenceManager *manager();
 

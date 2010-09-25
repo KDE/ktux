@@ -86,8 +86,8 @@ int main(int argc, char *argv[])
 KSpriteSetup::KSpriteSetup(QWidget *parent, const char *name)
   : KDialog( parent )
 {
-    setObjectName(name);
-    KGlobal::locale()->insertCatalog("ktux");
+    setObjectName( QLatin1String( name ) );
+    KGlobal::locale()->insertCatalog( QLatin1String( "ktux" ));
     saver = 0;
 
     setButtons(Ok|Cancel|Help);
@@ -223,11 +223,11 @@ void KSpriteSaver::readSettings()
 
     mSpeed = config.readEntry("Speed", 50);
 
-    QString path = KGlobal::dirs()->findResourceDir( "sprite", "bg.png" );
+    QString path = KGlobal::dirs()->findResourceDir( "sprite", QLatin1String( "bg.png" ) );
 
     SpritePixmapManager::manager()->setPixmapDir(path);
 
-    path += "spriterc";
+    path += QLatin1String( "spriterc" );
 
     KConfig *pConfig = new KConfig(path);
     KConfigGroup mConfig(pConfig, "Config");
@@ -249,7 +249,7 @@ void KSpriteSaver::readSettings()
 void KSpriteSaver::initialise()
 {
     mCanvas = new Q3Canvas();
-    QPixmap pm( KStandardDirs::locate("sprite", "bg.png") );
+    QPixmap pm( KStandardDirs::locate("sprite", QLatin1String( "bg.png" )) );
     mCanvas->setBackgroundPixmap( pm );
     mCanvas->resize( width(), height() );
     mView = new Q3CanvasView(mCanvas);

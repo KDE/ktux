@@ -31,7 +31,7 @@ SpritePixmapManager *SpritePixmapManager::mManager = 0;
 
 
 SpritePixmapManager::SpritePixmapManager()
-  : mPixmapDir(".")
+  : mPixmapDir(QLatin1String("."))
 {
     mPixmaps.setAutoDelete(true);
 }
@@ -49,7 +49,7 @@ const QPixmap *SpritePixmapManager::load(const QString & img)
     if( !pixmap ) {
         // pixmap has not yet been loaded.
         kDebug() << "Reading pixmap: " << img;
-        QString path = mPixmapDir + QString("/") + img;
+        QString path = mPixmapDir + QLatin1String("/") + img;
         pixmap = new QPixmap(path);
 
         if( !pixmap->isNull() ) {
