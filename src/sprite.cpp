@@ -56,8 +56,19 @@ struct KSpriteSaverInterface : public KScreenSaverInterface
         about->setLicense( KAboutData::License_GPL );
         about->setCopyrightStatement( ki18n("1999 by Martin R. Jones\n2010 by Stefan Böhmann") );
 
-        about->addAuthor( ki18n( "Martin R. Jones" ), KLocalizedString(), "mjones@kde.org");
-        about->addAuthor( ki18n( "Stefan Böhmann" ), KLocalizedString(), "kde@hilefoks.org");
+        about->addAuthor(
+            ki18n( "Stefan Böhmann" ),
+            ki18n( "Current maintainer" ),
+            "kde@hilefoks.org",
+            "http://www.hilefoks.org",
+            "hilefoks"
+        );
+
+        about->addAuthor(
+            ki18n( "Martin R. Jones" ),
+            KLocalizedString(),
+            "mjones@kde.org"
+        );
 
         return about;
     }
