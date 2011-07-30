@@ -132,7 +132,7 @@ KSpriteSetup::KSpriteSetup(QWidget *parent, const char *name)
     sb->setPageStep(10);
     sb->setValue(speed);
     tl11->addWidget(sb);
-    connect( sb, SIGNAL( valueChanged( int ) ), SLOT( slotSpeed( int ) ) );
+    connect( sb, SIGNAL(valueChanged(int)), SLOT(slotSpeed(int)) );
 
     preview = new QWidget( main );
     preview->setFixedSize( 220, 170 );
@@ -145,8 +145,8 @@ KSpriteSetup::KSpriteSetup(QWidget *parent, const char *name)
     saver = new KSpriteSaver( preview->winId() );
     tl1->addWidget(preview);
 
-    connect( this, SIGNAL( helpClicked() ), SLOT(slotAbout() ) );
-    connect( this, SIGNAL( okClicked() ), SLOT( slotOkPressed() ) );
+    connect( this, SIGNAL(helpClicked()), SLOT(slotAbout()) );
+    connect( this, SIGNAL(okClicked()), SLOT(slotOkPressed()) );
 
 }
 
