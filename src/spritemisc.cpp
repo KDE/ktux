@@ -17,7 +17,7 @@
  */
 #include "spritemisc.h"
 
-#include <krandom.h>
+#include <KRandom>
 
 
 QSize SpriteRange::mFieldSize;

@@ -17,13 +17,12 @@
  */
 #include "spritepm.h"
 
-#include <stdlib.h>
-#include <kdebug.h>
-#include <kconfiggroup.h>
+#include <cstdlib>
+#include <KConfigGroup>
 
+#include <QDebug>
 #include <QPixmap>
 #include <QVector>
-#include <Qt3Support/Q3PtrList>
 
 
 // static
@@ -33,7 +32,6 @@ SpritePixmapManager *SpritePixmapManager::mManager = 0;
 SpritePixmapManager::SpritePixmapManager()
   : mPixmapDir(QLatin1String("."))
 {
-    mPixmaps.setAutoDelete(true);
 }
 
 
@@ -42,13 +40,14 @@ SpritePixmapManager::~SpritePixmapManager()
 }
 
 
-const QPixmap *SpritePixmapManager::load(const QString & img)
+QPixmap *SpritePixmapManager::load(const QString & img)
 {
-    QPixmap *pixmap = mPixmaps.find(img);
+    QHash<QString, QPixmap*>::iterator i = mPixmaps.find( img );
+    QPixmap *pixmap = i.value();
 
-    if( !pixmap ) {
+    if( i == mPixmaps.end() ) {
         // pixmap has not yet been loaded.
-        kDebug() << "Reading pixmap: " << img;
+        qDebug() << "Reading pixmap: " << img;
         QString path = mPixmapDir + QLatin1String("/") + img;
         pixmap = new QPixmap(path);
 
@@ -58,7 +57,7 @@ const QPixmap *SpritePixmapManager::load(const QString & img)
         else {
             delete pixmap;
             pixmap = 0;
-            kDebug() << "read failed";;
+            qDebug() << "read failed";
         }
     }
 
@@ -76,9 +75,8 @@ SpritePixmapManager *SpritePixmapManager::manager()
 }
 
 
-SpritePixmapSequence::SpritePixmapSequence(Q3PtrList<QPixmap> pm, Q3PtrList<QPoint> hs, QVector<int> d)
-  : Q3CanvasPixmapArray( pm, hs ),
-    mDelays( d )
+SpritePixmapSequence::SpritePixmapSequence(QList<QPixmap*> pm, QList<QPoint*> hs, QVector<int> d)
+    : mDelays( d ), pm(pm), hs(hs)
 {
 }
 
@@ -88,7 +86,6 @@ SpriteSequenceManager *SpriteSequenceManager::mManager = 0;
 
 SpriteSequenceManager::SpriteSequenceManager()
 {
-    mSprites.setAutoDelete( true );
 }
 
 
@@ -99,10 +96,11 @@ SpriteSequenceManager::~SpriteSequenceManager()
 
 SpritePixmapSequence* SpriteSequenceManager::load(KConfigBase &config, const QString &name)
 {
-    SpritePixmapSequence *sprite = mSprites.find( name );
+    QHash<QString, SpritePixmapSequence*>::iterator i = mSprites.find( name );
+    SpritePixmapSequence *sprite = i.value();
 
-    if( !sprite ) {
-        kDebug() << "Reading sprite: " << name;
+    if( i == mSprites.end() ) {
+        qDebug() << "Reading sprite: " << name;
         KConfigGroup grp( &config, name );
         sprite = read( grp );
         if( sprite ) {
@@ -118,8 +116,8 @@ SpritePixmapSequence *SpriteSequenceManager::read(const KConfigGroup &config)
 {
     QStringList strImages;
     QStringList strDelays;
-    Q3PtrList<QPixmap> pixmaps;
-    Q3PtrList<QPoint> hotspots;
+    QList<QPixmap*> pixmaps;
+    QList<QPoint*> hotspots;
 
     strImages = config.readEntry( "Images",QStringList() );
     strDelays = config.readEntry( "Delays",QStringList() );
@@ -127,8 +125,7 @@ SpritePixmapSequence *SpriteSequenceManager::read(const KConfigGroup &config)
     QVector<int> delays( strImages.count() );
 
     for( int i = 0; i < strImages.count(); i++ ) {
-        const QPixmap *pixmap =
-                    SpritePixmapManager::manager()->load( strImages.at( i ) );
+        QPixmap *pixmap = SpritePixmapManager::manager()->load( strImages.at( i ) );
         if( pixmap ) {
             pixmaps.append( pixmap );
             hotspots.append( new QPoint( 0,0 ) );

@@ -19,18 +19,39 @@
 #include "spritemisc.h"
 #include "spritepm.h"
 
-#include <kdebug.h>
-#include <kconfiggroup.h>
+#include <QDebug>
+#include <QPainter>
+
+#include <KConfigGroup>
 
 
-SpriteObject::SpriteObject(SpritePixmapSequence *seq, Q3Canvas *c)
-  : Q3CanvasSprite( seq, c ),
+SpriteObject::SpriteObject(SpritePixmapSequence *seq, QGraphicsScene *scene)
+  : QGraphicsItem(0),
     mCycle( 0 ),
     mLifeSpan( -1 ),
-    mSeq( seq )
+    mSeq( seq ),
+    currentFrame( 0 )
 {
+    for (int i = 0; i < mSeq->pixmaps().size(); ++i) {
+        QPixmap *pixmap;
+        pixmap = mSeq->pixmaps().at(i);
+        Frame frame;
+        frame.pixmap = pixmap;
+        frame.shape = QPainterPath();
+        frame.boundingRect = pixmap->rect();
+        frames << frame;
+    }
+
+    scene->addItem(this);
 }
 
+void SpriteObject::setFrame(int frame)
+{
+    if (!frames.isEmpty()) {
+        prepareGeometryChange();
+        currentFrame = frame % frames.size();
+    }
+}
 
 void SpriteObject::age()
 {
@@ -38,6 +59,7 @@ void SpriteObject::age()
         mLifeSpan--;
     }
     mCycle++;
+    moveBy(vx, vy);
 
     if( mCycle > mSeq->delay( frame() ) ) {
         setFrame((frame()+1)%frameCount());
@@ -65,22 +87,21 @@ SpriteDef::SpriteDef(KConfigGroup &config)
 }
 
 
-SpriteObject *SpriteDef::create( Q3Canvas *c )
+SpriteObject *SpriteDef::create( QGraphicsScene *scene )
 {
     SpriteObject *sprite = 0;
     if( mSeq ) {
         int startX = mStartX.random();
         int startY = mStartY.random();
-        sprite = new SpriteObject( mSeq, c );
+        sprite = new SpriteObject( mSeq, scene );
         sprite->setVelocity( mDirX.random(), mDirY.random() );
         if( mDirX.min() != 0 || mDirX.max() != 0 ||
             mDirY.min() != 0 || mDirY.max() != 0 ) {
-            sprite->setAnimated( true );
         }
-        sprite->move( startX, startY );
+        sprite->setPos( startX, startY );
         sprite->setBounds( startX-1, startY-1, mEndX.random()+1, mEndY.random()+1 );
         sprite->setLifeSpan( mLifeSpan );
-        sprite->setZ( mZ );
+        sprite->setZValue( mZ );
         sprite->show();
     }
 
@@ -101,28 +122,30 @@ void SpriteDef::read(KConfigGroup &config)
     QString animation = config.readEntry( "Animation", "" );
     KConfigBase *grp = config.config();
     mSeq = SpriteSequenceManager::manager()->load( *grp, animation );
-    kDebug() << "Set Z = " << mZ;
+    qDebug() << "Set Z = " << mZ;
 }
 
 
 
-SpriteGroup::SpriteGroup(Q3Canvas *c, KConfigGroup &config)
-  : mCanvas( c )
+SpriteGroup::SpriteGroup(QGraphicsScene *scene, KConfigGroup &config)
+  : mScene( scene )
 {
-    mAvailable.setAutoDelete( true );
-    mActive.setAutoDelete( true );
     read( config );
 }
 
 
 void SpriteGroup::next()
 {
-    Q3PtrListIterator<SpriteObject> it(mActive);
+    QList<SpriteObject*>::iterator it;
 
-    for(; it.current(); ++it) {
-        SpriteObject *sprite = it.current();
+    for(it = mActive.begin(); it != mActive.end(); ++it) {
+        SpriteObject *sprite = *it;
         if( sprite->outOfBounds() || sprite->dead() ) {
-            mActive.removeRef( sprite );
+            int i = mActive.indexOf(sprite);
+            if (i != -1)
+            {
+                delete mActive.takeAt(i);
+            }
         }
         else {
 //            sprite->forward(1);
@@ -135,7 +158,7 @@ void SpriteGroup::next()
 void SpriteGroup::refresh()
 {
     if( ((int) mActive.count()) < mCount ) {
-        SpriteObject *sprite = mAvailable.first()->create( mCanvas );
+        SpriteObject *sprite = mAvailable.first()->create( mScene );
         mActive.append( sprite );
     }
 }
@@ -159,6 +182,16 @@ void SpriteGroup::read(KConfigGroup &config)
         SpriteDef *obj = new SpriteDef( grp );
         mAvailable.append( obj );
     }
+}
+
+QRectF SpriteObject::boundingRect() const
+{
+    return frames.at(currentFrame).boundingRect;
+}
+
+void SpriteObject::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
+{
+    painter->drawPixmap(0, 0, *frames.at(currentFrame).pixmap);
 }
 
 

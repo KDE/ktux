@@ -21,22 +21,21 @@
 #include "spritemisc.h"
 #include "spritepm.h"
 
+#include <QList>
 #include <QPixmap>
 
-#include <Qt3Support/Q3Dict>
-#include <Qt3Support/Q3PtrList>
-#include <Qt3Support/Q3StrList>
-#include <Qt3Support/Q3Canvas>
+#include <QGraphicsItem>
+#include <QGraphicsScene>
 
 #include <kconfigbase.h>
 #include <kconfig.h>
 
 
 
-class SpriteObject : public Q3CanvasSprite
+class SpriteObject : public QGraphicsItem
 {
     public:
-        SpriteObject(SpritePixmapSequence *seq, Q3Canvas *c);
+        SpriteObject(SpritePixmapSequence *seq, QGraphicsScene *scene);
 
         void setLifeSpan(int l) { mLifeSpan = l; }
         void age();
@@ -44,11 +43,31 @@ class SpriteObject : public Q3CanvasSprite
         void setBounds( int x1, int y1, int x2, int y2 );
         bool outOfBounds() const;
 
+        void setFrame(int frame);
+        inline int frame() const { return currentFrame; }
+        inline int frameCount() const { return frames.size(); }
+        inline void setVelocity(qreal xvel, qreal yvel) { vx = xvel; vy = yvel; }
+        inline qreal xVelocity() const { return vx; }
+        inline qreal yVelocity() const { return vy; }
+        QRectF boundingRect() const;
+        void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
+
     protected:
         int mCycle;
         int mLifeSpan;
         SpritePixmapSequence *mSeq;
         QRect mBound;
+
+    private:
+        struct Frame {
+            QPixmap *pixmap;
+            QPainterPath shape;
+            QRectF boundingRect;
+        };
+
+        int currentFrame;
+        QList<Frame> frames;
+        qreal vx, vy;
 };
 
 
@@ -57,7 +76,7 @@ class SpriteDef
     public:
         explicit SpriteDef(KConfigGroup &config);
 
-        SpriteObject *create(Q3Canvas *c);
+        SpriteObject *create(QGraphicsScene *scene);
 
     protected:
         void read(KConfigGroup &config);
@@ -78,7 +97,7 @@ class SpriteDef
 class SpriteGroup
 {
     public:
-        SpriteGroup(Q3Canvas *c, KConfigGroup &config);
+        SpriteGroup(QGraphicsScene *scene, KConfigGroup &config);
 
         void next();
         void refresh();
@@ -88,11 +107,11 @@ class SpriteGroup
         void read(KConfigGroup &config);
 
     protected:
-        Q3PtrList<SpriteDef> mAvailable;
-        Q3PtrList<SpriteObject> mActive;
+        QList<SpriteDef*> mAvailable;
+        QList<SpriteObject*> mActive;
         int mCount;
         SpriteRange mRefresh;
-        Q3Canvas *mCanvas;
+        QGraphicsScene *mScene;
 };
 
 

@@ -18,14 +18,13 @@
 #ifndef SPRITEPM_H
 #define SPRITEPM_H
 
-#include <Qt3Support/Q3Dict>
-#include <QtGui/QPixmap>
-#include <Qt3Support/Q3Canvas>
-#include <Qt3Support/Q3PtrList>
-#include <QtCore/QVector>
+#include <QPixmap>
+#include <QHash>
+#include <QList>
+#include <QVector>
 
-#include <kconfigbase.h>
-#include <kconfig.h>
+#include <KConfigBase>
+#include <KConfig>
 
 
 class SpritePixmapManager
@@ -38,28 +37,32 @@ class SpritePixmapManager
             { mPixmapDir = dir; }
         void reset()
             { mPixmapDir = QLatin1String("."); mPixmaps.clear(); }
-        const QPixmap *load(const QString & img);
-        const QPixmap *pixmap(const char *img) const
-            { return mPixmaps.find(QLatin1String(img)); }
+        QPixmap *load(const QString & img);
+        QPixmap *pixmap(const char *img) const
+            { return mPixmaps.find(QLatin1String(img)).value(); }
 
         static SpritePixmapManager *manager();
 
     public:
-        QString        mPixmapDir;           // get pixmaps from here
-        Q3Dict<QPixmap> mPixmaps;             // list of pixmaps
+        QString        mPixmapDir;            // get pixmaps from here
+        QHash <QString, QPixmap*> mPixmaps;   // list of pixmaps
         static SpritePixmapManager *mManager; // static pointer to instance
 };
 
 
-class SpritePixmapSequence : public Q3CanvasPixmapArray
+class SpritePixmapSequence
 {
     public:
-        SpritePixmapSequence(Q3PtrList<QPixmap> pm, Q3PtrList<QPoint> hs, QVector<int> d);
+        SpritePixmapSequence(QList<QPixmap*> pm, QList<QPoint*> hs, QVector<int> d);
 
         int delay(int i) const { return mDelays[i]; }
+        QList<QPixmap*> pixmaps() const { return pm; }
+        QList<QPoint*> hotspots() const { return hs; }
 
     protected:
         QVector<int> mDelays;
+        QList<QPixmap*> pm;
+        QList<QPoint*> hs;
 };
 
 class KConfigGroup;
@@ -73,7 +76,7 @@ class SpriteSequenceManager
 
         SpritePixmapSequence *load(KConfigBase &config, const QString & name);
         SpritePixmapSequence *sprite(const char *name)
-            { return mSprites.find(QLatin1String(name)); }
+            { return mSprites.find(QLatin1String(name)).value(); }
 
         static SpriteSequenceManager *manager();
 
@@ -81,7 +84,7 @@ class SpriteSequenceManager
         SpritePixmapSequence *read(const KConfigGroup &config);
 
     protected:
-        Q3Dict<SpritePixmapSequence> mSprites;
+        QHash<QString, SpritePixmapSequence*> mSprites;
         static SpriteSequenceManager *mManager;
 };
 

@@ -23,7 +23,8 @@
 #include <QTimerEvent>
 #include <QVector>
 
-#include <Qt3Support/Q3Canvas>
+#include <QGraphicsScene>
+#include <QGraphicsView>
 
 #include <kscreensaver.h>
 #include <KDialog>
@@ -55,8 +56,8 @@ class KSpriteSaver : public KScreenSaver
         void resizeEvent(QResizeEvent *event);
 
     protected:
-        Q3Canvas *mCanvas;
-        Q3CanvasView *mView;
+        QGraphicsScene *mScene;
+        QGraphicsView *mView;
         QTimer mTimer;
         int mSpeed;
         QList<SpriteGroup*> mGroups;
