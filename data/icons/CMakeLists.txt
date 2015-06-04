@@ -1,2 +1,2 @@
-kde4_install_icons( ${ICON_INSTALL_DIR} )
+ecm_install_icons( ICONS 16-apps-ktux.png 32-apps-ktux.png DESTINATION ${KDE_INSTALL_ICONDIR} THEME hicolor )
 
