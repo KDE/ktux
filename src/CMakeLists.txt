@@ -16,5 +16,4 @@ target_link_libraries(ktux
 )
 
 install( TARGETS ktux ${INSTALL_TARGETS_DEFAULT_ARGS} )
-
-# install( FILES ktux.desktop DESTINATION ${SERVICES_INSTALL_DIR}/ScreenSavers )
+install( PROGRAMS org.kde.ktux.desktop  DESTINATION  ${KDE_INSTALL_APPDIR}/ktux )
