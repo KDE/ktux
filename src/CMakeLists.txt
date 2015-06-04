@@ -13,7 +13,6 @@ target_link_libraries(ktux
     KF5::ConfigCore
     KF5::ConfigGui
     KF5::CoreAddons
-    KF5::I18n
 )
 
 install( TARGETS ktux ${INSTALL_TARGETS_DEFAULT_ARGS} )
