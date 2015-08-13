@@ -18,29 +18,26 @@
 #ifndef SPRITE_H
 #define SPRITE_H
 
-#include <QTimer>
-#include <QPushButton>
-#include <QTimerEvent>
-#include <QVector>
-
 #include <QGraphicsScene>
 #include <QGraphicsView>
-
-#include <kscreensaver.h>
-#include <KDialog>
+#include <QMainWindow>
+#include <QPushButton>
+#include <QTimer>
+#include <QTimerEvent>
+#include <QVector>
 
 #include "spriteanim.h"
 
 
-class KSpriteSaver : public KScreenSaver
+class KSpriteSaver : public QMainWindow
 {
     Q_OBJECT
 
     public:
-        explicit KSpriteSaver(WId id = 0);
+        explicit KSpriteSaver();
         virtual ~KSpriteSaver();
 
-    public slots:
+    public Q_SLOTS:
         void setSpeed(int speed);
 
     private:
@@ -48,7 +45,7 @@ class KSpriteSaver : public KScreenSaver
         void initialise();
         void blank();
 
-    protected slots:
+    protected Q_SLOTS:
         void slotTimeout();
 
     protected:
@@ -62,29 +59,6 @@ class KSpriteSaver : public KScreenSaver
         int mSpeed;
         QList<SpriteGroup*> mGroups;
         QVector<int> mTimerIds;
-};
-
-
-class KSpriteSetup : public KDialog
-{
-    Q_OBJECT
-
-    public:
-        explicit KSpriteSetup(QWidget *parent = 0, const char *name = 0);
-        ~KSpriteSetup();
-
-    protected:
-        void readSettings();
-
-    private slots:
-        void slotSpeed(int s);
-        void slotOkPressed();
-        void slotAbout();
-
-    private:
-        int speed;
-        QWidget *preview;
-        KSpriteSaver *saver;
 };
 
 

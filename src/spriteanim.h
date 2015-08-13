@@ -27,8 +27,8 @@
 #include <QGraphicsItem>
 #include <QGraphicsScene>
 
-#include <kconfigbase.h>
-#include <kconfig.h>
+#include <KConfigBase>
+#include <KConfig>
 
 
 

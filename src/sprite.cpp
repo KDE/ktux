@@ -22,6 +22,7 @@
 #include <cstdlib>
 #include <ctime>
 
+#include <QApplication>
 #include <QDebug>
 #include <QFrame>
 #include <QHBoxLayout>
@@ -30,177 +31,25 @@
 #include <QPixmap>
 #include <QPointer>
 #include <QSlider>
+#include <QStandardPaths>
 #include <QTimerEvent>
 #include <QVBoxLayout>
 
 #include <KConfigGroup>
-#include <KPushButton>
-#include <KMessageBox>
-#include <KStandardDirs>
-#include <KLocale>
-#include <KStandardGuiItem>
-#include <KGuiItem>
-#include <KRandom>
-#include <KDialogButtonBox>
-#include <KAboutApplicationDialog>
-#include <KComponentData>
-
-
-
-struct KSpriteSaverInterface : public KScreenSaverInterface
-{
-    virtual KAboutData* aboutData()
-    {
-        KAboutData *about = new KAboutData( "ktux", 0, ki18n( "KTux" ), "1.0.1" );
-        about->setShortDescription( ki18n( "Tux Screen Saver" ) );
-        about->setLicense( KAboutData::License_GPL );
-        about->setCopyrightStatement( ki18n("1999 by Martin R. Jones\n2010 by Stefan Böhmann") );
-
-        about->addAuthor(
-            ki18n( "Stefan Böhmann" ),
-            ki18n( "Current maintainer" ),
-            "kde@hilefoks.org",
-            "http://www.hilefoks.org",
-            "hilefoks"
-        );
-
-        about->addAuthor(
-            ki18n( "Martin R. Jones" ),
-            KLocalizedString(),
-            "mjones@kde.org"
-        );
-
-        return about;
-    }
-
-
-    virtual KScreenSaver* create( WId id )
-    {
-        return new KSpriteSaver( id );
-    }
-
-
-    virtual KDialog* setup()
-    {
-        return new KSpriteSetup();
-    }
-};
-
+#include <KSharedConfig>
 
 int main(int argc, char *argv[])
 {
-    KSpriteSaverInterface kss;
-    return kScreenSaverMain( argc, argv, kss );
+    QApplication app(argc, argv);
+
+    KSpriteSaver topLevel;
+    topLevel.setWindowTitle( QStringLiteral( "KTux" ));
+
+    return app.exec();
 }
 
-
-KSpriteSetup::KSpriteSetup(QWidget *parent, const char *name)
-  : KDialog( parent )
+KSpriteSaver::KSpriteSaver()
 {
-    setObjectName( QLatin1String( name ) );
-    KGlobal::locale()->insertCatalog( QLatin1String( "ktux" ));
-    saver = 0;
-
-    setButtons(Ok|Cancel|Help);
-    setDefaultButton(Ok);
-    setButtonText( Help, i18n( "A&bout" ) );
-    setModal(true);
-    showButtonSeparator(true);
-    QWidget *main = new QWidget(this);
-    setMainWidget(main);
-
-    readSettings();
-    setWindowTitle(i18n("Setup KTux") );
-
-    QVBoxLayout *tl = new QVBoxLayout(main);
-    tl->setSpacing(10);
-    tl->setMargin(10);
-    QHBoxLayout *tl1 = new QHBoxLayout;
-    tl->addLayout(tl1);
-    QVBoxLayout *tl11 = new QVBoxLayout();
-    tl11->setSpacing( 5 );
-    tl1->addLayout(tl11);
-
-    QLabel *label = new QLabel( i18n("Speed:"), main );
-    label->setMinimumSize(label->sizeHint());
-    tl11->addStretch(1);
-    tl11->addWidget(label);
-
-    QSlider *sb = new QSlider( Qt::Horizontal,main);
-    sb->setMinimum(0);
-    sb->setMaximum(100);
-    sb->setPageStep(10);
-    sb->setValue(speed);
-    tl11->addWidget(sb);
-    connect( sb, SIGNAL(valueChanged(int)), SLOT(slotSpeed(int)) );
-
-    preview = new QWidget( main );
-    preview->setFixedSize( 220, 170 );
-
-    QPalette palette;
-    palette.setColor(preview->backgroundRole(), Qt::black);
-    preview->setPalette(palette);
-    preview->setAutoFillBackground(true);
-    preview->show();    // otherwise saver does not get correct size
-    saver = new KSpriteSaver( preview->winId() );
-    tl1->addWidget(preview);
-
-    connect( this, SIGNAL(helpClicked()), SLOT(slotAbout()) );
-    connect( this, SIGNAL(okClicked()), SLOT(slotOkPressed()) );
-
-}
-
-KSpriteSetup::~KSpriteSetup()
-{
-    delete saver;
-}
-
-
-void KSpriteSetup::readSettings()
-{
-    KConfigGroup config(KGlobal::config(), "Settings");
-
-    speed = config.readEntry( "Speed", 50 );
-    if( speed > 100 ) {
-        speed = 100;
-    }
-    else if( speed < 0 ) {
-        speed = 0;
-    }
-}
-
-
-void KSpriteSetup::slotSpeed(int s)
-{
-    speed = s;
-    if( saver ) {
-        saver->setSpeed(speed);
-    }
-}
-
-
-void KSpriteSetup::slotOkPressed()
-{
-    KConfigGroup config(KGlobal::config(), "Settings");
-    config.writeEntry("Speed", speed);
-    config.sync();
-    accept();
-}
-
-
-void KSpriteSetup::slotAbout()
-{
-    QPointer<KAboutApplicationDialog> dialog = new KAboutApplicationDialog( KGlobal::mainComponent().aboutData(), this );
-
-    dialog->exec();
-    delete dialog;
-}
-
-
-KSpriteSaver::KSpriteSaver( WId id ) : KScreenSaver( id )
-{
-    KGlobal::dirs()->addResourceType("sprite", "data", "ktux/sprites/");
-
     initialise();
     readSettings();
     blank();
@@ -230,28 +79,29 @@ void KSpriteSaver::readSettings()
 {
     QString str;
 
-    KConfigGroup config(KGlobal::config(), "Settings");
+    KSharedConfigPtr config = KSharedConfig::openConfig();
+    KConfigGroup group( config, QStringLiteral("Settings") );
 
-    mSpeed = config.readEntry("Speed", 50);
+    mSpeed = group.readEntry(QStringLiteral("Speed"), 50);
 
-    QString path = KGlobal::dirs()->findResourceDir( "sprite", QLatin1String( "bg.png" ) );
+    QString path = QStandardPaths::locate(QStandardPaths::DataLocation, QStringLiteral("sprites/"), QStandardPaths::LocateDirectory);
 
     SpritePixmapManager::manager()->setPixmapDir(path);
 
-    path += QLatin1String( "spriterc" );
+    path += QStringLiteral( "spriterc" );
 
     KConfig *pConfig = new KConfig(path);
-    KConfigGroup mConfig(pConfig, "Config");
+    KConfigGroup mConfig(pConfig, QStringLiteral("Config"));
     QStringList list;
-    list = mConfig.readEntry("Groups",list);
+    list = mConfig.readEntry(QStringLiteral("Groups"),list);
     mTimerIds.resize(list.count());
     for (int i = 0; i < list.count(); i++)
     {
-    qDebug() << "Group: " << list.at(i);
+        qDebug() << QStringLiteral("Group: ") << list.at(i);
         KConfigGroup grp = pConfig->group(list.at(i));
-    SpriteGroup *obj = new SpriteGroup(mScene, grp);
-    mTimerIds[i] = startTimer(obj->refreshTime());
-    mGroups.append(obj);
+        SpriteGroup *obj = new SpriteGroup(mScene, grp);
+        mTimerIds[i] = startTimer(obj->refreshTime());
+        mGroups.append(obj);
     }
     delete pConfig;
 }
@@ -260,7 +110,7 @@ void KSpriteSaver::readSettings()
 void KSpriteSaver::initialise()
 {
     mScene = new QGraphicsScene();
-    QPixmap pm( KStandardDirs::locate("sprite", QLatin1String( "bg.png" )) );
+    QPixmap pm( QStandardPaths::locate(QStandardPaths::DataLocation, QStringLiteral("sprites/bg.png")) );
     mScene->setBackgroundBrush(QBrush(pm));
     mScene->setSceneRect( 0, 0, width(), height() );
     mView = new QGraphicsView(mScene);
@@ -271,7 +121,6 @@ void KSpriteSaver::initialise()
 
     mView->resize( size());
     mView->setFrameStyle( QFrame::NoFrame );
-    embed( mView );
     mView->show();
     SpriteRange::setFieldSize(mView->size());
 }

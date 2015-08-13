@@ -47,8 +47,8 @@ QPixmap *SpritePixmapManager::load(const QString & img)
 
     if( i == mPixmaps.end() ) {
         // pixmap has not yet been loaded.
-        qDebug() << "Reading pixmap: " << img;
-        QString path = mPixmapDir + QLatin1String("/") + img;
+        qDebug() << QStringLiteral("Reading pixmap: ") << img;
+        QString path = mPixmapDir + QStringLiteral("/") + img;
         pixmap = new QPixmap(path);
 
         if( !pixmap->isNull() ) {
@@ -57,7 +57,7 @@ QPixmap *SpritePixmapManager::load(const QString & img)
         else {
             delete pixmap;
             pixmap = 0;
-            qDebug() << "read failed";
+            qDebug() << QStringLiteral("read failed");
         }
     }
 
@@ -100,7 +100,7 @@ SpritePixmapSequence* SpriteSequenceManager::load(KConfigBase &config, const QSt
     SpritePixmapSequence *sprite = i.value();
 
     if( i == mSprites.end() ) {
-        qDebug() << "Reading sprite: " << name;
+        qDebug() << QStringLiteral("Reading sprite: ") << name;
         KConfigGroup grp( &config, name );
         sprite = read( grp );
         if( sprite ) {
@@ -119,8 +119,8 @@ SpritePixmapSequence *SpriteSequenceManager::read(const KConfigGroup &config)
     QList<QPixmap*> pixmaps;
     QList<QPoint*> hotspots;
 
-    strImages = config.readEntry( "Images",QStringList() );
-    strDelays = config.readEntry( "Delays",QStringList() );
+    strImages = config.readEntry( QStringLiteral("Images"), QStringList() );
+    strDelays = config.readEntry( QStringLiteral("Delays"), QStringList() );
 
     QVector<int> delays( strImages.count() );
 

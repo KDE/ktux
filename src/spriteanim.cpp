@@ -111,18 +111,18 @@ SpriteObject *SpriteDef::create( QGraphicsScene *scene )
 
 void SpriteDef::read(KConfigGroup &config)
 {
-    mDirX.set( config.readEntry( "DirectionX", "0" ) );
-    mDirY.set( config.readEntry( "DirectionY", "0" ) );
-    mStartX.set( config.readEntry( "StartX", "0" ) );
-    mStartY.set( config.readEntry( "StartY", "0" ) );
-    mEndX.set( config.readEntry( "EndX", "10000" ) );
-    mEndY.set( config.readEntry( "EndY", "10000" ) );
-    mLifeSpan = config.readEntry( "LifeSpan", -1 );
-    mZ = config.readEntry( "Z", 1 );
-    QString animation = config.readEntry( "Animation", "" );
+    mDirX.set( config.readEntry( QStringLiteral("DirectionX"), QStringLiteral("0") ) );
+    mDirY.set( config.readEntry( QStringLiteral("DirectionY"), QStringLiteral("0") ) );
+    mStartX.set( config.readEntry( QStringLiteral("StartX"), QStringLiteral("0") ) );
+    mStartY.set( config.readEntry( QStringLiteral("StartY"), QStringLiteral("0") ) );
+    mEndX.set( config.readEntry( QStringLiteral("EndX"), QStringLiteral("10000") ) );
+    mEndY.set( config.readEntry( QStringLiteral("EndY"), QStringLiteral("10000") ) );
+    mLifeSpan = config.readEntry( QStringLiteral("LifeSpan"), -1 );
+    mZ = config.readEntry( QStringLiteral("Z"), 1 );
+    QString animation = config.readEntry( QStringLiteral("Animation"), QString() );
     KConfigBase *grp = config.config();
     mSeq = SpriteSequenceManager::manager()->load( *grp, animation );
-    qDebug() << "Set Z = " << mZ;
+    qDebug() << QStringLiteral("Set Z = ") << mZ;
 }
 
 
@@ -166,15 +166,15 @@ void SpriteGroup::refresh()
 
 void SpriteGroup::read(KConfigGroup &config)
 {
-    qDebug() << " void SpriteGroup::read(KConfigBase &config) :" << config.name();
+    qDebug() << QStringLiteral(" void SpriteGroup::read(KConfigBase &config) :") << config.name();
 
-    SpriteRange countRange( config.readEntry( "Count", "1" ) );
+    SpriteRange countRange( config.readEntry( QStringLiteral("Count"), QStringLiteral("1") ) );
     mCount = countRange.random();
 
-    mRefresh.set( config.readEntry( "Refresh", "1000" ) );
+    mRefresh.set( config.readEntry( QStringLiteral("Refresh"), QStringLiteral("1000") ) );
 
     QStringList anims;
-    anims = config.readEntry( "Animations", anims );
+    anims = config.readEntry( QStringLiteral("Animations"), anims );
     QStringList::const_iterator lst;
 
     for( lst = anims.constBegin(); lst != anims.constEnd(); ++lst ) {
