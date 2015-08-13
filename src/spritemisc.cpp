@@ -72,10 +72,10 @@ int SpriteRange::parse(const QString &str)
 {
     int val = 0;
 
-    if( str == QLatin1String("WIDTH") ) {
+    if( str == QStringLiteral("WIDTH") ) {
         val = mFieldSize.width();
     }
-    else if( str == QLatin1String("HEIGHT") ) {
+    else if( str == QStringLiteral("HEIGHT") ) {
         val = mFieldSize.height();
     }
     else {

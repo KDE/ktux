@@ -43,7 +43,7 @@ int main(int argc, char *argv[])
     QApplication app(argc, argv);
 
     KSpriteSaver topLevel;
-    topLevel.setWindowTitle( QLatin1String( "KTux" ));
+    topLevel.setWindowTitle( QStringLiteral( "KTux" ));
 
     return app.exec();
 }
@@ -80,24 +80,24 @@ void KSpriteSaver::readSettings()
     QString str;
 
     KSharedConfigPtr config = KSharedConfig::openConfig();
-    KConfigGroup group( config, "Settings" );
+    KConfigGroup group( config, QStringLiteral("Settings") );
 
-    mSpeed = group.readEntry("Speed", 50);
+    mSpeed = group.readEntry(QStringLiteral("Speed"), 50);
 
     QString path = QStandardPaths::locate(QStandardPaths::DataLocation, QStringLiteral("sprites/"), QStandardPaths::LocateDirectory);
 
     SpritePixmapManager::manager()->setPixmapDir(path);
 
-    path += QLatin1String( "spriterc" );
+    path += QStringLiteral( "spriterc" );
 
     KConfig *pConfig = new KConfig(path);
-    KConfigGroup mConfig(pConfig, "Config");
+    KConfigGroup mConfig(pConfig, QStringLiteral("Config"));
     QStringList list;
-    list = mConfig.readEntry("Groups",list);
+    list = mConfig.readEntry(QStringLiteral("Groups"),list);
     mTimerIds.resize(list.count());
     for (int i = 0; i < list.count(); i++)
     {
-        qDebug() << "Group: " << list.at(i);
+        qDebug() << QStringLiteral("Group: ") << list.at(i);
         KConfigGroup grp = pConfig->group(list.at(i));
         SpriteGroup *obj = new SpriteGroup(mScene, grp);
         mTimerIds[i] = startTimer(obj->refreshTime());
